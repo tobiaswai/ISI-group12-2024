@@ -27,8 +27,8 @@ def checkout(request):
            order, created = Order.objects.get_or_create(customer=customer, complete=False)
            items = order.orderitem_set.all()
      else:
-          order = {'get_cart_total':0, 'get_cart_items':0}
           items = []
+          order = {'get_cart_total':0, 'get_cart_items':0}
 
 
      context = {'items':items, 'order':order}
@@ -36,27 +36,27 @@ def checkout(request):
 
 
 def updateItem(request):
-     data = json.loads(request.data)
-     productID = data['productID']
+     data = json.loads(request.body)
+     productId = data['productId']
      action = data['action']
 
      print('Action:', action)
-     print('productID:', productID)
+     print('productID:', productId)
 
      customer = request.user.customer
-     product = product.objects.get(id=productID)
+     product = Product.objects.get(id=productId)
      order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
-     OrderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+     orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 
      if action == 'add':
-          OrderItem.quantity = (OrderItem.quantity + 1)
+          orderItem.quantity = (orderItem.quantity + 1)
      elif action == 'remove':
-          OrderItem.quantity = (OrderItem.quantity - 1)
+          orderItem.quantity = (orderItem.quantity - 1)
 
-     OrderItem.save()
+     orderItem.save()
 
-     if OrderItem.quantity <= 0:
-          OrderItem.delete()
+     if orderItem.quantity <= 0:
+          orderItem.delete()
 
      return JsonResponse('Item was added', safe=False)
