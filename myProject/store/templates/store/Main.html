@@ -2,7 +2,7 @@
 {% load static %}
 <html>
 <head>
-	<title>Ecom</title>
+	<title>Loyal Electronics Square</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
@@ -33,20 +33,18 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	  <a class="navbar-brand" href="{% url 'store' %}">Ecom</a>
+	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c6004d;">
+	  <a class="navbar-brand" href="{% url 'store' %}">Loyal Electronics Square</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item active">
-	        <a class="nav-link" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
-	      </li>
-	 
 	    </ul>
+		
 	    <div class="form-inline my-2 my-lg-0">
+
 	     	<a href="#"class="btn btn-warning">Login</a>
 	     	
 	     	<a href="{% url 'cart' %}">
@@ -60,6 +58,7 @@
 
      <div class="container">
             <br>
+
             {% block content %}
 
 
