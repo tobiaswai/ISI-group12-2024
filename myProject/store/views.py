@@ -59,7 +59,12 @@ def store(request):
           order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}    
           cartItems = order['get_cart_items'] 
 
-     products = Product.objects.all()
+     if 'q' in request.GET:
+          q = request.GET['q']
+          products = Product.objects.filter(name__icontains=q)
+     else:
+          products = Product.objects.all()
+          
      page = Paginator(products, 6)
      page_list = request.GET.get('page')
      page = page.get_page(page_list)
