@@ -14,7 +14,7 @@
   	</nav>
 	
 	<div class="row">
-		{% for product in products %}
+		{% for product in page.object_list %}
 		<div class="col-lg-4">
 			<img class="thumbnail" src="{{product.image.url}}">
 			<div class="box-element product">
@@ -30,5 +30,33 @@
 		</div>
 		{% endfor %}
 	</div>
+	<p>Page: {{ page.number }}/{{ page.paginator.num_pages}}</p>
+	<nav aria-label="...">
+		<ul class="pagination">
+		  	<li class="page-item">
+				{% if page.has_previous %}
+				<a class="page-link" href="{% url 'store' %}?page={{ page.previous_page_number }}">Previous</a>
+				{% endif %}
+		  	</li>
+			{% for num_page in page.paginator.page_range %}
+			<br/>
+			{% if page.number == num_page %}
+			<li class="page-item active" aria-current="page">
+				<a class="page-link" href="{% url 'store' %}?page={{ num_page }}">{{ num_page }}</a>
+			</li>
+			{% else %}
+			<li class="page-item" aria-current="page">
+				<a class="page-link" href="{% url 'store' %}?page={{ num_page }}">{{ num_page }}</a>
+			</li>
+			{% endif %}
+			<br/>
+			{% endfor %}
+			<li class="page-item">
+				{% if page.has_next %}
+				<a class="page-link" href="{% url 'store' %}?page={{ page.next_page_number }}">Next</a>
+				{% endif %}
+			</li>
+		</ul>
+	  </nav>
 
 {% endblock content %}

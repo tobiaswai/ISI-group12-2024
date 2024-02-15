@@ -6,6 +6,9 @@ import json
 import datetime
 from .models import *
 
+from django.core.paginator import Paginator
+
+
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -57,7 +60,10 @@ def store(request):
           cartItems = order['get_cart_items'] 
 
      products = Product.objects.all()
-     context = {'products':products, 'cartItems':cartItems}
+     page = Paginator(products, 6)
+     page_list = request.GET.get('page')
+     page = page.get_page(page_list)
+     context = {'products':products, 'cartItems':cartItems, 'page': page}
      return render(request, 'store/store.html', context)
 
 def cart(request):
