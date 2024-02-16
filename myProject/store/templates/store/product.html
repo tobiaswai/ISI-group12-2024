@@ -1,0 +1,20 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<br/>
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img class="img-fluid rounded-start" src="{{products.image.url}}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h6><strong>{{products.name}}</strong></h6>
+                <h4 style="display: inline-block"><strong>
+                    ${{products.price|floatformat:2}}</strong></h4>
+                <br>
+                <button data-product="{{products.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            </div>
+        </div>
+</div>
+{% endblock content %}

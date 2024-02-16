@@ -45,8 +45,6 @@ def login(request):
             return render(request,'login.html',locals())
     return render(request, 'login.html')
 
-
-
 def store(request):
 
      if request.user.is_authenticated:
@@ -68,8 +66,25 @@ def store(request):
      page = Paginator(products, 6)
      page_list = request.GET.get('page')
      page = page.get_page(page_list)
+     products = Product.objects.all()
      context = {'products':products, 'cartItems':cartItems, 'page': page}
      return render(request, 'store/store.html', context)
+
+def product(request, pk):
+     
+     if request.user.is_authenticated:
+          customer = request.user.customer
+          order, created = Order.objects.get_or_create(customer=customer, complete=False)
+          items = order.orderitem_set.all()
+          cartItems = order.get_cart_items
+     else:
+          items = []
+          order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+          cartItems = order['get_cart_items']
+     
+     product = Product.objects.get(id=pk)
+     context = {'products':product, 'cartItems':cartItems}
+     return render(request, 'store/product.html', context)
 
 def cart(request):
 

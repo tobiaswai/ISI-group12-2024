@@ -20,9 +20,8 @@
 			<div class="box-element product">
 				<h6><strong>{{product.name}}</strong></h6>
 				<hr>
-
 				<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-				<a class="btn btn-outline-success" href="#">View</a>
+				<a class="btn btn-outline-success" href="{% url 'product' product.id %}">View</a>
 				<h4 style="display: inline-block; float: right"><strong>
 				${{product.price|floatformat:2}}</strong></h4>
 
@@ -30,6 +29,7 @@
 		</div>
 		{% endfor %}
 	</div>
+	<br>
 	<p>Page: {{ page.number }}/{{ page.paginator.num_pages}}</p>
 	<nav aria-label="...">
 		<ul class="pagination">
