@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic import ListView
 import json
 import datetime
 from .models import *
 
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 def register(request):
@@ -85,6 +87,39 @@ def product(request, pk):
      product = Product.objects.get(id=pk)
      context = {'products':product, 'cartItems':cartItems}
      return render(request, 'store/product.html', context)
+
+
+     def get(self, request, subcategory_id):
+          subcategory = get_object_or_404(Subcategories, pk=subcategory_id)
+
+          sort_by = request.GET.get("sort", "l2h") 
+          if sort_by == "l2h":
+               products = subcategory.products.order_by("price")
+          elif sort_by == "h2l":
+               products = subcategory.products.order_by("-price")
+
+          category_list = Categories.objects.all()
+          return render (request, 'products.html',{"subcategory_list" : products, 'category_list': category_list })
+
+class ProductListView(ListView):
+     def get_queryset(self):
+          filter_val=self.request.GET.get("filter","")
+          order_by=self.request.GET.get("orderby","id")
+          if filter_val!="":
+               products=Product.objects.filter(Q(name__contains=filter_val) | Q(price__contains=filter_val)).order_by(order_by)
+          else:
+               products=Product.objects.all().order_by(order_by)
+          return products
+
+     def get_context_data(self, **kwargs):
+          context = super(ProductListView,self).get_context_data(**kwargs)
+          context["filter"] = self.request.GET.get("filter","")
+          context["orderby"] = self.request.GET.get("orderby","id")
+          context["all_table_fields"] = Product._meta.get_fields()
+          return context
+
+     
+
 
 def cart(request):
 

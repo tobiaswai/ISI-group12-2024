@@ -3,10 +3,12 @@
 {% block content %}
 	<nav class="navbar navbar-light bg-light justify-content-end">
 		<a class="navbar-brand"></a>
-		<ul class="navbar-nav mr-auto">
-		<li class="nav-item">
-			<a class="nav-link" href="#">Sort</a>
-		</li></ul>
+		<div>
+			<b>Sort By : - </b>
+			<a href="{% url 'product_list' %}?filter={{ filter }}&orderby=id">ID</a> | 
+			<a href="{% url 'product_list' %}?filter={{ filter }}&orderby=name">Name</a> | 
+			<a href="{% url 'product_list' %}?filter={{ filter }}&orderby=price">Price</a>
+		</div>
 		<form class="form-inline">
 		<input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
