@@ -18,18 +18,27 @@ def register(request):
         password2 = request.POST['password2']
         email = request.POST['email']
         shipping_address = request.POST['shipping_address']
+        
         if User.objects.filter(username=username).exists():
             msg = 'This username has already been taken. Please choose a different one.'
-            return render(request,'register.html', locals())
+            return render(request, 'register.html', locals())
+        
+        if User.objects.filter(email=email).exists():
+            msg = 'This email has already been registered. Please use a different email.'
+            return render(request, 'register.html', locals())
+        
         if password != password2:
             msg = 'Passwords are inconsistent'
-            return render(request,'register.html',locals())
-        #elif username == '' or email == '':
-            #msg = 'Please enter required information'
-        else:
-            User.objects.create_user(username=username, password=password, email=email)
-            Customer.objects.create_user(user=username) 
-            return redirect('login')
+            return render(request, 'register.html', locals())
+        
+        # Create User object
+        user = User.objects.create_user(username=username, password=password, email=email)
+        
+        # Create Customer object
+        Customer.objects.create(user=user, shipping_address=shipping_address)
+        
+        return redirect('login')
+    
     return render(request, 'register.html')
     
 def login(request):

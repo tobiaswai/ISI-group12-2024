@@ -6,10 +6,10 @@ class Customer(models.Model):
     full_name = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
     password = models.CharField(max_length=200, null=True)
-    ShippingAddress = models.CharField(max_length=200, null=True)
+    shipping_address = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.full_name
+        return str(self.full_name)
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
