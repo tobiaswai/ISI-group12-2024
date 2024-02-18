@@ -34,26 +34,31 @@
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c6004d;">
-	  <a class="navbar-brand" href="{% url 'store' %}">Loyal Electronics Square</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	    </ul>
-		
+		<a class="navbar-brand" href="{% url 'store' %}">Loyal Electronics Square</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Purchase orders</a>
+				</li>
+			</ul>
+		</div>
 	    <div class="form-inline my-2 my-lg-0">
 
 			{% if user.is_authenticated %}
-				<p>Hi {{ user.username }}! </p>
+				<a style="margin-right: 16px; color: white">Hi {{ user.username }}! </a>
 				<form action="{% url 'logout' %}" method="post">
 					{% csrf_token %} 
 					<button class="btn btn-warning" type="submit">Logout</button>
 				</form>
 			{% else %}
-				<p>You are not logged in. </p>
-	     		<p><a href="{% url 'login' %}" class="btn btn-warning">Login</a></p>
+				<a style="margin-right: 16px; color: white">You are not logged in. </a>
+	     		<a href="{% url 'login' %}" class="btn btn-warning">Login</a>
 	     	{% endif %}
 
 	     	<a href="{% url 'cart' %}">

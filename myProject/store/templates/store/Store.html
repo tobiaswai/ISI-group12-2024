@@ -3,11 +3,11 @@
 {% block content %}
 	<nav class="navbar navbar-light bg-light justify-content-end">
 		<a class="navbar-brand"></a>
-		<div>
+		<div style="margin-right: 16px">
 			<b>Sort By : - </b>
 			<a href="{% url 'product_list' %}?filter={{ filter }}&orderby=id">ID</a> | 
 			<a href="{% url 'product_list' %}?filter={{ filter }}&orderby=name">Name</a> | 
-			<a href="{% url 'product_list' %}?filter={{ filter }}&orderby=price">Price</a>
+			<a href="{% url 'product_list' %}?filter={{ filter }}&orderby=price">Price</a> 
 		</div>
 		<form class="form-inline">
 		<input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
@@ -32,7 +32,7 @@
 		{% endfor %}
 	</div>
 	<br>
-	<p>Page: {{ page.number }}/{{ page.paginator.num_pages}}</p>
+	<a>Page: {{ page.number }}/{{ page.paginator.num_pages}}</a>
 	<nav aria-label="...">
 		<ul class="pagination">
 		  	<li class="page-item">
