@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = 'customer', null=True, blank=True)
@@ -21,7 +23,8 @@ class Product(models.Model):
     image = models.ImageField(null=True, blank=True)
     image2 = models.ImageField(null=True, blank=True)
     image3 = models.ImageField(null=True, blank=True)
-
+    description = models.TextField(null=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -30,15 +33,13 @@ class Product(models.Model):
     def imageURL(self):
         try:
             url = self.image.url
-            url = self.image2.url
-            url = self.image3.url
         except:
             url = ''
         return url
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-    date_ordered = models.DateTimeField(auto_now_add=True, null=True)
+    date_ordered = models.DateTimeField(default=timezone.now)
     complete = models.BooleanField(default=False, null=True, blank=False)
     shipping_address = models.TextField(max_length=200, null=True)
     total_amount = models.DecimalField(max_digits=100, decimal_places=2, null=True)
@@ -68,6 +69,15 @@ class Order(models.Model):
         total = sum([item.quantity for item in orderitems])
         return total
 
+    def total_amount(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.get_total for item in orderitems])
+        return total
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.date_ordered = timezone.now()
+        return super(Order, self).save(*args, **kwargs)
 
 
 class OrderItem(models.Model):

@@ -1,0 +1,18 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<h2>Order: {{ order.id }}</h2>
+<p>Date: {{ order.date_ordered }}</p>
+<p>shipping address: {{ Customer.shipping_address }}</p>
+<p>Total Amount: {{ order.total_amount }}</p>
+<p>Status: {{ order.status }}</p>
+
+{% for item in order_items %}
+    <div>
+        <h3>Product: {{ item.product.name }}</h3>
+        <p>Quantity: {{ item.quantity }}</p>
+        <p>Unit Price: {{ item.product.price }}</p>
+        <p>Subtotal: {{ item.get_total }}</p>
+    </div>
+{% endfor %}
+{% endblock content %}

@@ -17,6 +17,7 @@ def register(request):
         password = request.POST['password']
         password2 = request.POST['password2']
         email = request.POST['email']
+        full_name = request.POST['full_name']
         shipping_address = request.POST['shipping_address']
         
         if User.objects.filter(username=username).exists():
@@ -35,8 +36,8 @@ def register(request):
         user = User.objects.create_user(username=username, password=password, email=email)
         
         # Create Customer object
-        Customer.objects.create(user=user, shipping_address=shipping_address)
-        
+        Customer.objects.create(user=user, password=password, full_name=full_name, email=email, shipping_address=shipping_address)
+
         return redirect('login')
     
     return render(request, 'register.html')
@@ -70,14 +71,14 @@ def store(request):
 
      if 'q' in request.GET:
           q = request.GET['q']
-          products = Product.objects.filter(name__icontains=q)
+          products = Product.objects.filter(name__icontains=q, is_active=True)
      else:
-          products = Product.objects.all()
+          products = Product.objects.filter(is_active=True)
           
      page = Paginator(products, 6)
      page_list = request.GET.get('page')
      page = page.get_page(page_list)
-     products = Product.objects.all()
+     products = Product.objects.filter(is_active=True)
      context = {'products':products, 'cartItems':cartItems, 'page': page}
      return render(request, 'store/store.html', context)
 
@@ -96,38 +97,6 @@ def product(request, pk):
      product = Product.objects.get(id=pk)
      context = {'products':product, 'cartItems':cartItems}
      return render(request, 'store/product.html', context)
-
-
-     def get(self, request, subcategory_id):
-          subcategory = get_object_or_404(Subcategories, pk=subcategory_id)
-
-          sort_by = request.GET.get("sort", "l2h") 
-          if sort_by == "l2h":
-               products = subcategory.products.order_by("price")
-          elif sort_by == "h2l":
-               products = subcategory.products.order_by("-price")
-
-          category_list = Categories.objects.all()
-          return render (request, 'products.html',{"subcategory_list" : products, 'category_list': category_list })
-
-class ProductListView(ListView):
-     def get_queryset(self):
-          filter_val=self.request.GET.get("filter","")
-          order_by=self.request.GET.get("orderby","id")
-          if filter_val!="":
-               products=Product.objects.filter(Q(name__contains=filter_val) | Q(price__contains=filter_val)).order_by(order_by)
-          else:
-               products=Product.objects.all().order_by(order_by)
-          return products
-
-     def get_context_data(self, **kwargs):
-          context = super(ProductListView,self).get_context_data(**kwargs)
-          context["filter"] = self.request.GET.get("filter","")
-          context["orderby"] = self.request.GET.get("orderby","id")
-          context["all_table_fields"] = Product._meta.get_fields()
-          return context
-
-     
 
 def cart(request):
 
@@ -200,7 +169,7 @@ def processOrder(request):
           total = float(data['form']['total'])
           order.transaction_id = transaction_id
 
-          if total == order.get_cart_total:
+          if total == float(order.get_cart_total):
                order.complete = True
           order.save()
 
@@ -218,7 +187,21 @@ def processOrder(request):
           print('User is not logged in...')
      return JsonResponse('Payment complete!', safe=False)
 
-def orders(request):
+     def orders(request):
+          if request.user.is_authenticated:
+               customer = request.user.customer
+               order, created = Order.objects.get_or_create(customer=customer, complete=False)
+               items = order.orderitem_set.all()
+               cartItems = order.get_cart_items
+          else:
+               items = []
+               order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+               cartItems = order['get_cart_items']
+
+          context = {'items':items, 'order':order, 'cartItems':cartItems}
+          return render(request, 'store/orders.html', context)
+
+def order_list(request):
      if request.user.is_authenticated:
           customer = request.user.customer
           order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -227,7 +210,22 @@ def orders(request):
      else:
           items = []
           order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
-          cartItems = order['get_cart_items']
+          cartItems = order['get_cart_items']    
+          
+     orders = Order.objects.filter(customer = request.user.customer,  complete=True)
+     return render(request, 'store/order_list.html', {'orders': orders})
 
-     context = {'items':items, 'order':order, 'cartItems':cartItems}
-     return render(request, 'store/orders.html', context)
+def order_detail(request, pk):
+     if request.user.is_authenticated:
+          customer = request.user.customer
+          order, created = Order.objects.get_or_create(customer=customer, complete=False)
+          items = order.orderitem_set.all()
+          cartItems = order.get_cart_items
+     else:
+          items = []
+          order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}    
+          cartItems = order['get_cart_items'] 
+
+     order = Order.objects.get(id=pk)
+     order_items = OrderItem.objects.filter(order=order)
+     return render(request, 'store/order_detail.html', {'order': order, 'order_items': order_items})
