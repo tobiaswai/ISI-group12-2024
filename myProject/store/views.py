@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import json
 import datetime
+from django.views import View
 from .models import *
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
@@ -73,33 +74,26 @@ def adminLogin(request):
 
 @login_required(login_url="/adminLogin/")
 def adminDashboard(request):
-    products = Product.objects.all()
-    
+     products = Product.objects.all()
 
-        
-    if request.method == 'POST':
+     if 'q' in request.GET:
+          q = request.GET['q']
+          products = Product.objects.filter(name__icontains=q, is_active=True)
+          products = Product.objects.filter(id__icontains=q, is_active=True)
+     else:
+          products = Product.objects.filter(is_active=True)
+
+     if request.method == 'POST':
         
         form = ProductForm(request.POST, request.FILES)  # 包含文件数据时需要传入 request.FILES
         if form.is_valid():
-            form.save()
-            return redirect('/adminDashboard')  # 重定向到更新后的页面或其他视图
+          form.save()
+          return redirect('/adminDashboard')  # 重定向到更新后的页面或其他视图
 
-        
         if 'action' in request.POST:
             product_id = request.POST.get('product_id')
             action = request.POST.get('action')
 
-            #if action == 'add':
-                # 执行增加产品数量的操作
-                #product = Product.objects.get(id=product_id)
-                #product.quantity += 1
-                #product.save()
-            #elif action == 'subtract':
-                # 执行减少产品数量的操作
-                #product = Product.objects.get(id=product_id)
-                #if product.quantity > 0:
-                    #product.quantity -= 1
-                    #product.save()
             if action == 'delete':
                 # 执行删除产品的操作
                 product = Product.objects.get(id=product_id)
@@ -111,10 +105,23 @@ def adminDashboard(request):
             if form.is_valid():
                 form.save()
 
-    form = ProductForm()
+     form = ProductForm()
 
-    return render(request, 'adminDashboard.html', {'products': products, 'form': form})
+     return render(request, 'adminDashboard.html', {'products': products, 'form': form})
 
+class ProductUpdateView(View):
+    def get(self, request, product_id):
+        product = Product.objects.get(id=product_id)
+        form = ProductForm(instance=product)
+        return render(request, 'product_edit.html', {'form': form})
+
+    def post(self, request, product_id):
+        product = Product.objects.get(id=product_id)
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('/adminDashboard', product_id=product_id)
+        
 def store(request):
 
      if request.user.is_authenticated:
@@ -245,8 +252,13 @@ def order_list(request):
           items = []
           order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
           cartItems = order['get_cart_items']    
-          
-     orders = Order.objects.filter(customer = request.user.customer,  complete=True)
+     
+
+     if request.user.is_staff:
+          orders = Order.objects.filter(complete=True).order_by('-date_ordered')
+     else:
+          orders = Order.objects.filter(customer = request.user.customer,  complete=True).order_by('-date_ordered')
+
      return render(request, 'store/order_list.html', {'orders': orders})
 
 def order_detail(request, pk):
