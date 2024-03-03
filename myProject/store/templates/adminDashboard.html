@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <button type="submit" name="action" value="add">Add</button>
+                    <button type="submit" name="action" value="subtract">Subtract</button>
+                    <button type="submit" name="action" value="delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Add Product</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

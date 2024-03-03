@@ -1,9 +1,17 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-     <div class="row">
-		<div class="col-lg-6">
-			<div class="box-element" id="form-wrapper">
+
+
+		<div class="col-lg-12">
+			<div class="box-element">
+				<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>	
+				<div class="col-lg-4">
+
+					
+				</div>				
+				<hr>
+				<h3>Order Summary:</h3>
 				<form id="form">
 					{% csrf_token %}
 					<div id="user-info">
@@ -14,46 +22,13 @@
 							<input required class="form-control" type="email" name="email" placeholder="Email..">
 						</div>
 					</div>
-					
-					<div id="shipping-info">
-						<hr>
-						<p>Shipping Information:</p>
-						<hr>
-						<div class="form-field">
-							<input class="form-control" type="text" name="address" placeholder="Address..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="city" placeholder="City..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="state" placeholder="State..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="country" placeholder="Zip code..">
-						</div>
-					</div>
-
-					<hr>
-					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Confirm">
 				</form>
-			</div>
 
 			<br>
 			<div class="box-element hidden" id="payment-info">
-				<small>Paypal Options</small>
 				<button id="make-payment">Make Payment</button>
 			</div>
-			
-		</div>
-
-		<div class="col-lg-6">
-			<div class="box-element">
-				<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
-				<hr>
-				<h3>Order Summary</h3>
 				<hr>
 				{% for item in items %}
 				<div class="cart-row">
@@ -66,8 +41,8 @@
 				<h5>Items:   {{order.get_cart_items}}</h5>
 				<h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>
 			</div>
+		</div>			
 		</div>
-	</div>
 
 <script type="text/javascript">
 	var shipping = '{{order.shipping}}'
@@ -108,20 +83,6 @@
 			'total':total,
 		}
 
-		var shippingInfo = {
-			'address':null,
-			'city':null,
-			'state':null,
-			'zipcode':null,
-		}
-
-		if(shipping != 'False'){
-			shippingInfo.address = form.address.value
-			shippingInfo.city = form.city.value
-			shippingInfo.state = form.state.value
-			shippingInfo.zipcode = form.zipcode.value
-		}
-
 		if(user == 'AnonymousUser'){
 			userFormDara.name = form.name.value
 			userFormDara.email = form.email.value
@@ -134,7 +95,7 @@
 				'Content-Type':'application/json',
 				'X-CSRFToken':csrftoken,
 			},
-			body:JSON.stringify({'form':userFormDara, 'shipping':shippingInfo})
+			body:JSON.stringify({'form':userFormDara})
 		})
 		.then((respone) => respone.json())
 		.then((data) => {

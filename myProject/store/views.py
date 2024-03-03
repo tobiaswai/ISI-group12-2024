@@ -2,13 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.views.generic import ListView
 import json
 import datetime
 from .models import *
+from django.contrib.auth import authenticate, login as auth_login
 
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django import forms
+from .forms import ProductForm
 
 
 def register(request):
@@ -48,7 +50,7 @@ def login(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user:
-            login(request, user)
+            auth_login(request, user)
             #msg = 'You have successfully logged in!'
             return redirect('store/main.html')
         else:
@@ -56,6 +58,62 @@ def login(request):
             msg = 'username or password is incorrect'
             return render(request,'login.html',locals())
     return render(request, 'login.html')
+
+def adminLogin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user and user.is_staff:  # 确保用户是管理员
+            auth_login(request, user)
+            return redirect('/adminDashboard')
+        else:
+            error_msg = 'Invalid username or password.'
+    return render(request, 'adminLogin.html', locals())
+
+def adminDashboard(request):
+
+    products = Product.objects.all()
+    
+
+        
+    if request.method == 'POST':
+        
+        form = ProductForm(request.POST, request.FILES)  # 包含文件数据时需要传入 request.FILES
+        if form.is_valid():
+            form.save()
+            return redirect('/adminDashboard')  # 重定向到更新后的页面或其他视图
+
+        
+        if 'action' in request.POST:
+            product_id = request.POST.get('product_id')
+            action = request.POST.get('action')
+
+            #if action == 'add':
+                # 执行增加产品数量的操作
+                #product = Product.objects.get(id=product_id)
+                #product.quantity += 1
+                #product.save()
+            #elif action == 'subtract':
+                # 执行减少产品数量的操作
+                #product = Product.objects.get(id=product_id)
+                #if product.quantity > 0:
+                    #product.quantity -= 1
+                    #product.save()
+            if action == 'delete':
+                # 执行删除产品的操作
+                product = Product.objects.get(id=product_id)
+                product.delete()
+        else:
+            # 处理新增产品的操作
+            # 这里假设您有一个名为 ProductForm 的表单类用于添加新产品
+            form = ProductForm(request.POST)
+            if form.is_valid():
+                form.save()
+
+    form = ProductForm()
+
+    return render(request, 'adminDashboard.html', {'products': products, 'form': form})
 
 def store(request):
 
@@ -160,46 +218,20 @@ def updateItem(request):
 
 #@csrf_exempt
 def processOrder(request):
-     transaction_id = datetime.datetime.now().timestamp()
      data = json.loads(request.body)
 
      if request.user.is_authenticated:
           customer = request.user.customer
           order, created = Order.objects.get_or_create(customer=customer, complete=False)
           total = float(data['form']['total'])
-          order.transaction_id = transaction_id
 
           if total == float(order.get_cart_total):
                order.complete = True
           order.save()
-
-          if order.shipping == True:
-               ShippingAddress.objects.create(
-                    customer=customer,
-                    order=order,
-                    address=data['shipping']['address'],
-                    city=data['shipping']['city'],
-                    state=data['shipping']['state'],
-                    zipcode=data['shipping']['zipcode'],
-                    )
      
      else:
           print('User is not logged in...')
      return JsonResponse('Payment complete!', safe=False)
-
-     def orders(request):
-          if request.user.is_authenticated:
-               customer = request.user.customer
-               order, created = Order.objects.get_or_create(customer=customer, complete=False)
-               items = order.orderitem_set.all()
-               cartItems = order.get_cart_items
-          else:
-               items = []
-               order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
-               cartItems = order['get_cart_items']
-
-          context = {'items':items, 'order':order, 'cartItems':cartItems}
-          return render(request, 'store/orders.html', context)
 
 def order_list(request):
      if request.user.is_authenticated:

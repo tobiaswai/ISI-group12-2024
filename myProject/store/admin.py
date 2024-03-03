@@ -10,5 +10,4 @@ admin.site.register(Order)
 admin.site.register(OrderItem)
 admin.site.register(OrderStatusChange)
 admin.site.register(OrderStatus)
-admin.site.register(ShippingAddress)
 

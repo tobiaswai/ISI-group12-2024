@@ -4,106 +4,20 @@
      <div class="row">
 		<div class="col-lg-12">
 			<div class="box-element">
-				<h3>Order Summary</h3>
+				<h3>Purchase Orders List</h3>
 				<hr>
-				{% for item in items %}
-				<div class="cart-row">
-					<div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
-					<div style="flex:2"><p>{{item.product.name}}</p></div>
-					<div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
-					<div style="flex:1"><p>x{{item.quantity}}</p></div>
-				</div>
-				{% endfor %}
-				<h5>Items:   {{order.get_cart_items}}</h5>
-				<h5>Total:   ${{order.get_cart_total|floatformat:2}}</h5>
-			</div>
+				{% for order in orders %}
+				<a href="{% url 'order_detail' order.id %}">
+					<div>
+						<h2>Order: {{ order.id }}</h2>
+						<p>Date: {{ order.date_ordered }}</p>
+						<p>Total Amount: {{ order.total_amount }}</p>
+						<p>Status: {{ order.status }}</p>
+					</div>
+				</a>
+				<hr>
+				{% endfor %}				
 		</div>
 	</div>
 
-	{% for order in orders %}
-    <a href="{% url 'order_detail' order.id %}">-
-        <div>
-            <h2>Order: {{ order.id }}</h2>
-            <p>Date: {{ order.date_ordered }}</p>
-            <p>Total Amount: {{ order.total_amount }}</p>
-            <p>Status: {{ order.status }}</p>
-        </div>
-    </a>
-	{% endfor %}
-
-<script type="text/javascript">
-	var shipping = '{{order.shipping}}'
-	var total = '{{order.get_cart_total}}'
-
-	if(shipping == 'False'){
-		document.getElementById('shipping-info').innerHTML = ''
-	}
-
-	if (user != 'AnonymousUser'){
-		document.getElementById('user-info').innerHTML = ''
-	}
-
-	if (shipping == 'False' && user != 'AnonymousUser'){
-		document.getElementById('form-wrapper').classList.add("hidden");
-		document.getElementById('payment-info').classList.remove("hidden");
-	}
-	var form = document.getElementById('form')
-
-	csrftoken = form.getElementsByTagName("input")[0].value
-	console.log('Newtoken:', form.getElementsByTagName("input")[0].value)
-
-	form.addEventListener('submit', function(e){
-		e.preventDefault()
-		console.log('Form submitted...')
-		document.getElementById('form-button').classList.add('hidden')
-		document.getElementById('payment-info').classList.remove('hidden')
-	})
-
-	document.getElementById('make-payment').addEventListener('click', function(e){submitFormData()})
-
-	function submitFormData(){
-		console.log('Payment button clicked')
-
-		var userFormDara = {
-			'name':null,
-			'email':null,
-			'total':total,
-		}
-
-		var shippingInfo = {
-			'address':null,
-			'city':null,
-			'state':null,
-			'zipcode':null,
-		}
-
-		if(shipping != 'False'){
-			shippingInfo.address = form.address.value
-			shippingInfo.city = form.city.value
-			shippingInfo.state = form.state.value
-			shippingInfo.zipcode = form.zipcode.value
-		}
-
-		if(user == 'AnonymousUser'){
-			userFormDara.name = form.name.value
-			userFormDara.email = form.email.value
-		}
-
-		var url = '/process_order/'
-		fetch(url,{
-			method: 'POST',
-			headers:{
-				'Content-Type':'application/json',
-				'X-CSRFToken':csrftoken,
-			},
-			body:JSON.stringify({'form':userFormDara, 'shipping':shippingInfo})
-		})
-		.then((respone) => respone.json())
-		.then((data) => {
-			console.log('Success:', data);
-			alert('Transaction completed');
-			window.location.href = "{% url 'store' %}"
-		})
-	}
-</script>
 {% endblock content %}
