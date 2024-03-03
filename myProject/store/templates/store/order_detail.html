@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Order: {{ order.id }}</h2>
 <p>Date: {{ order.date_ordered }}</p>
-<p>shipping address: {{ Customer.shipping_address }}</p>
+<p>shipping address: {{ order.customer.shipping_address }}</p>
 <p>Total Amount: {{ order.total_amount }}</p>
 <p>Status: {{ order.status }}</p>
 
