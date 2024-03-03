@@ -6,7 +6,7 @@ import json
 import datetime
 from .models import *
 from django.contrib.auth import authenticate, login as auth_login
-
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django import forms
@@ -71,8 +71,8 @@ def adminLogin(request):
             error_msg = 'Invalid username or password.'
     return render(request, 'adminLogin.html', locals())
 
+@login_required(login_url="/adminLogin/")
 def adminDashboard(request):
-
     products = Product.objects.all()
     
 
@@ -156,6 +156,7 @@ def product(request, pk):
      context = {'products':product, 'cartItems':cartItems}
      return render(request, 'store/product.html', context)
 
+@login_required
 def cart(request):
 
      if request.user.is_authenticated:
@@ -172,6 +173,7 @@ def cart(request):
      context = {'products':products, 'items':items, 'order':order, 'cartItems':cartItems}
      return render(request, 'store/cart.html', context)
 
+@login_required
 def checkout(request):
      if request.user.is_authenticated:
            customer = request.user.customer
@@ -187,7 +189,7 @@ def checkout(request):
      context = {'items':items, 'order':order, 'cartItems':cartItems}
      return render(request, 'store/checkout.html', context)
 
-
+@login_required
 def updateItem(request):
      data = json.loads(request.body)
      productId = data['productId']
