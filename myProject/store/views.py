@@ -107,7 +107,12 @@ def adminDashboard(request):
 
      form = ProductForm()
 
-     return render(request, 'adminDashboard.html', {'products': products, 'form': form})
+     if request.user.is_staff:
+          return render(request, 'adminDashboard.html', {'products': products, 'form': form})
+     else:
+          return render(request, 'adminLogin.html', locals())
+
+
 
 class ProductUpdateView(View):
     def get(self, request, product_id):
