@@ -44,7 +44,7 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(default=timezone.now)
     complete = models.BooleanField(default=False, null=True, blank=False)
     total_amount = models.DecimalField(max_digits=100, decimal_places=2, null=True)
-    status = models.CharField(max_length=20, null=True)
+    status = models.CharField(max_length=20, default='pending')
 
     def __str__(self):
         return str(self.id)

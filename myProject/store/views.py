@@ -78,10 +78,9 @@ def adminDashboard(request):
 
      if 'q' in request.GET:
           q = request.GET['q']
-          products = Product.objects.filter(name__icontains=q, is_active=True)
-          products = Product.objects.filter(id__icontains=q, is_active=True)
+          products = Product.objects.filter(Q(name__icontains=q) | Q(id__icontains=q))
      else:
-          products = Product.objects.filter(is_active=True)
+          products = Product.objects.all()
 
      if request.method == 'POST':
         
@@ -231,6 +230,7 @@ def updateItem(request):
 #from django.views.decorators.csrf import csrf_exempt
 
 #@csrf_exempt
+@login_required
 def processOrder(request):
      data = json.loads(request.body)
 
@@ -247,6 +247,7 @@ def processOrder(request):
           print('User is not logged in...')
      return JsonResponse('Payment complete!', safe=False)
 
+@login_required
 def order_list(request):
      if request.user.is_authenticated:
           customer = request.user.customer
@@ -266,6 +267,7 @@ def order_list(request):
 
      return render(request, 'store/order_list.html', {'orders': orders})
 
+@login_required
 def order_detail(request, pk):
      if request.user.is_authenticated:
           customer = request.user.customer
