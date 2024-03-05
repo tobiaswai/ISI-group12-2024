@@ -17,4 +17,7 @@ urlpatterns = [
     path('adminLogin/', views.adminLogin, name="adminLogin"),
     path('adminDashboard/', views.adminDashboard, name="adminDashboard"),
     path('product_edit/<int:product_id>', views.ProductUpdateView.as_view(), name="product_edit"),
+    path('order_ship/<int:order_id>/ship/', views.ship_order, name="order_ship"),
+    path('order_hold/<int:order_id>/hold/', views.hold_order, name="order_hold"),
+    path('order_cancel/<int:order_id>/cancel/', views.cancel_order, name="order_cancel"),
 ]

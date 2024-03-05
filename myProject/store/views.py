@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -12,6 +12,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django import forms
 from .forms import ProductForm
+from django.contrib import messages
 
 
 def register(request):
@@ -258,12 +259,18 @@ def order_list(request):
           items = []
           order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
           cartItems = order['get_cart_items']    
-     
 
+     status = request.GET.get('status')
      if request.user.is_staff:
-          orders = Order.objects.filter(complete=True).order_by('-date_ordered')
+          if status:
+               orders = Order.objects.filter(complete=True,status=status).order_by('-date_ordered')
+          else:
+               orders = Order.objects.filter(complete=True).order_by('-date_ordered')
      else:
-          orders = Order.objects.filter(customer = request.user.customer,  complete=True).order_by('-date_ordered')
+          if status:
+               orders = Order.objects.filter(customer = request.user.customer,  complete=True, status=status).order_by('-date_ordered')
+          else:
+               orders = Order.objects.filter(customer = request.user.customer,  complete=True).order_by('-date_ordered')
 
      return render(request, 'store/order_list.html', {'orders': orders})
 
@@ -282,3 +289,29 @@ def order_detail(request, pk):
      order = Order.objects.get(id=pk)
      order_items = OrderItem.objects.filter(order=order)
      return render(request, 'store/order_detail.html', {'order': order, 'order_items': order_items})
+
+@login_required
+def ship_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    if request.user.is_staff and order.status != 'cancelled': 
+        order.status = 'shipped'
+        order.shipment_date = timezone.now()
+        order.save()
+    return redirect('order_list')
+
+@login_required
+def hold_order(request, order_id):
+     order = get_object_or_404(Order, id=order_id)
+     if request.user.is_staff and order.status != 'shipped' and order.status != 'cancelled': 
+        order.status = 'hold'
+        order.save()
+     return redirect('order_list')
+
+@login_required
+def cancel_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    if request.user == order.customer.user and order.status != 'shipped':  
+        order.status = 'cancelled'
+        order.cancel_date = timezone.now()
+        order.save()
+    return redirect('order_list')

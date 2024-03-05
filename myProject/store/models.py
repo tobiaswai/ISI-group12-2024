@@ -32,19 +32,34 @@ class Product(models.Model):
         return self.name
     
     @property
-    def imageURL(self):
+    def imageURLs(self):
+        urls = []
         try:
-            url = self.image.url
+            if self.image:
+                urls.append(self.image.url)
+            if self.image2:
+                urls.append(self.image2.url)
+            if self.image3:
+                urls.append(self.image3.url)
         except:
-            url = ''
-        return url
+            pass  # handle the exception as needed
+        return urls
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('shipped', 'Shipped'),
+        ('cancelled', 'Cancelled'),
+        ('hold', 'Hold'),]
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     date_ordered = models.DateTimeField(default=timezone.now)
     complete = models.BooleanField(default=False, null=True, blank=False)
     total_amount = models.DecimalField(max_digits=100, decimal_places=2, null=True)
-    status = models.CharField(max_length=20, default='pending')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    shipment_date = models.DateTimeField(null=True, blank=True)
+    cancel_date = models.DateTimeField(null=True, blank=True)
+    ticket_issue_date = models.DateTimeField(null=True, blank=True)
+    refund_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return str(self.id)
@@ -94,20 +109,3 @@ class OrderItem(models.Model):
         total = self.product.price * self.quantity
         return total
     
-class OrderStatusChange(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, null=True)
-    change_date = models.DateTimeField(auto_now_add=True)
-
-ORDER_STATUS_CHOICES = [
-    ('pending', 'Pending'),
-    ('shipped', 'Shipped'),
-    ('cancelled', 'Cancelled'),
-    ('hold', 'Hold'),
-]
-
-class OrderStatus(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES)
-    change_date = models.DateTimeField(auto_now_add=True)
-

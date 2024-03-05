@@ -36,7 +36,11 @@
                 <div style="flex:1">${{item.product.price}}</div>
                 <div style="flex:1">${{item.get_total}}</div>
             </div>
-            {% endfor %}			
+            {% endfor %}		
+            <tr>
+                <th><h5>Shipment Date: <strong>{{order.shipment_date}}</strong></h5></th>
+                <th><h5>Cancel Date:<strong> {{order.cancel_date }}</strong></h5></th>
+            </tr>	
     </div>
 </div>
 

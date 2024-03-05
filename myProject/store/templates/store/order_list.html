@@ -13,7 +13,17 @@
 			<div class="box-element">
 				<h2>Purchase Orders List</h2>
 				<br>
-
+				<form method="get">
+					<select name="status">
+						<option value="">All</option>
+						<option value="pending">Pending</option>
+						<option value="hold">Hold</option>
+						<option value="shipped">Shipped</option>
+						<option value="cancelled">Cancelled</option>
+						<!-- Add more options as needed -->
+					</select>
+					<input type="submit" value="Filter">
+				</form>
 				<div class="cart-row">
 					<div style="flex:0.1"><strong></strong></div>
 					<div style="flex:1.1"><strong>Order ID</strong></div>
@@ -21,6 +31,7 @@
 					<div style="flex:1"><strong>Customer</strong></div>
 					<div style="flex:1"><strong>Total Amount</strong></div>
 					<div style="flex:1"><strong>Status</strong></div>
+					<div style="flex:1"><strong>Action</strong></div>
 				</div>
 				{% for order in orders %}
 				<div class="cart-row">
@@ -32,10 +43,33 @@
 					<div style="flex:1">{{order.customer}}</div>
 					<div style="flex:1">${{order.total_amount}}</div>
 					<div style="flex:1">{{order.status}}</div>
+					<div style="flex:1">
+					{% if request.user.is_staff %}
+					<form action="{% url 'order_hold' order.id %}" method="post" onsubmit="disableButton()">
+						{% csrf_token %}
+						<input type="submit" id="shipButton" value="Mark as Hold">
+					</form>
+					<form action="{% url 'order_ship' order.id %}" method="post" onsubmit="disableButton()">
+						{% csrf_token %}
+						<input type="submit" id="shipButton" value="Mark as Shipped">
+					</form>
+					{% else %}
+						<form action="{% url 'order_cancel' order.id %}" method="post">
+							{% csrf_token %}
+							<input type="submit" value="Cancel Order">
+						</form>
+					{% endif %}		
+					</div>
 				</div>
 				{% endfor %}			
 		</div>
 	</div>
+
+<script>
+	function disableButton() {
+		document.getElementById("shipButton").disabled = true;
+	}
+</script>
 
 
 
