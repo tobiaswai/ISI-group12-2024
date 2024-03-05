@@ -104,9 +104,6 @@ ORDER_STATUS_CHOICES = [
     ('shipped', 'Shipped'),
     ('cancelled', 'Cancelled'),
     ('hold', 'Hold'),
-    ('ticket_issued', 'Ticket Issued'),
-    ('complete', 'Complete'),
-    ('refunded', 'Refunded'),
 ]
 
 class OrderStatus(models.Model):

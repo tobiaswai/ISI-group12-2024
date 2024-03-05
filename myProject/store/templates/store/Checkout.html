@@ -24,7 +24,7 @@
 
 			<br>
 			<div class="box-element hidden" id="payment-info">
-				<button id="make-payment">Make Payment</button>
+				<button id="make-payment">Create Purchase Order</button>
 			</div>
 				<hr>
 				{% for item in items %}
@@ -96,7 +96,7 @@
 		.then((respone) => respone.json())
 		.then((data) => {
 			console.log('Success:', data);
-			alert('Transaction completed');
+			alert('Created successfully!');
 			window.location.href = "{% url 'store' %}"
 		})
 	}
