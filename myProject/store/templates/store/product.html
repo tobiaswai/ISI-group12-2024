@@ -12,15 +12,15 @@
                 <button onclick="nextImage()">Next image</button>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card-body">
                 <h6><strong>{{products.name}}</strong></h6>
                 <h4 style="display: inline-block"><strong>
                     ${{products.price|floatformat:2}}</strong></h4>
                 <br>
+                <p>Brand: {{products.brand}}</p>
+                <p>Color: {{products.color}}</p>
                 <p>Description: {{products.description}}</p>
-                <p>Size: {{products.size}}</p>
-                <p>Weight: {{products.weight}}</p>
                 <button data-product="{{products.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
             </div>
         </div>
