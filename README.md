@@ -3,10 +3,10 @@ FIRST,
 cd myproject
 
 THEN,
-pc terminal:
+pc terminal(git bash):
 source Venv/Scripts/activate
 python manage.py runserver
 
-mac terminal:
+mac terminal(powershell):
 source env/bin/activate
 python3 manage.py runserver

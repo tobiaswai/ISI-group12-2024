@@ -20,7 +20,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     brand = models.CharField(max_length=16, null=True)
-    color = models.CharField(max_length=16, null=True)
+    connectivity_technology = models.CharField(max_length=32, null=True)
     digital = models.BooleanField(default=False, null=True, blank=False)
     image = models.ImageField(null=True, blank=True)
     image2 = models.ImageField(null=True, blank=True)
