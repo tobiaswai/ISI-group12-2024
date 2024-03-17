@@ -10,3 +10,5 @@ python manage.py runserver
 mac terminal(powershell):
 source env/bin/activate
 python3 manage.py runserver
+
+LINK: http://localhost:8000/
