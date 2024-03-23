@@ -27,7 +27,7 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True, verbose_name=_('is_active'))
 
     def __str__(self):
-        return self.name
+        return str(self.id)
     
     @property
     def imageURLs(self):

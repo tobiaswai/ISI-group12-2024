@@ -5,11 +5,50 @@
 
 		<div class="col-lg-12">
 			<div class="box-element">
-				<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; {% trans 'Back to Cart' %}</a>	
-				<div class="col-lg-4">
-				</div>				
-				<hr>
+				<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; {% trans 'Back to Cart' %}</a>		
+				<hr>	
 				<h3>{% trans 'Order Summary:' %}</h3>
+				<div class="cart-row">
+					<div style="flex:2"></div>
+					<div style="flex:2"><strong>{% trans 'Item' %}</strong></div>
+					<div style="flex:1"><strong>{% trans 'Price' %}</strong></div>
+					<div style="flex:1"><strong>{% trans 'Quantity' %}</strong></div>
+					<div style="flex:1"><strong>{% trans 'Total' %}</strong></div>
+				</div>
+				{% for item in items %}
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{item.product.image.url}}"></div>
+					<div style="flex:2"><p>{{item.product.name}}</p></div>
+					<div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
+					<div style="flex:1"><p>x{{item.quantity}}</p></div>
+					<div style="flex:1">${{item.get_total}}</div>
+				</div>
+				{% endfor %}
+				<h5>{% trans 'Items:' %}   {{order.get_cart_items}}</h5>
+				<h5>{% trans 'Total:' %}   ${{order.get_cart_total|floatformat:2}}</h5>
+				<hr>
+
+
+				
+				<h4>Product Recommendations:</h4>
+				{% for product in product %}
+				<div class="col-lg-4">
+					<img class="thumbnail" src="{{product.image.url}}">
+					<div class="box-element product">
+						<h6><strong>{{product.name}}</strong></h6>
+						<hr>
+						<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
+						<a class="btn btn-outline-success" href="{% url 'product' product.id %}">{% trans 'View' %}</a>
+						<h4 style="display: inline-block; float: right"><strong>
+						${{product.price|floatformat:2}}</strong></h4>
+		
+					</div>
+				</div>
+				{% endfor %}
+
+
+
+				<hr>
 				<form id="form">
 					{% csrf_token %}
 					<div id="user-info">
@@ -22,23 +61,9 @@
 					</div>
 					<input id="form-button" class="btn btn-success btn-block" type="submit" value="{% trans 'Confirm' %}">
 				</form>
-
-			<br>
-			<div class="box-element hidden" id="payment-info">
-				<button id="make-payment">{% trans 'Create Purchase Order' %}</button>
-			</div>
-				<hr>
-				{% for item in items %}
-				<div class="cart-row">
-					<div style="flex:2"><img class="row-image" src="{{item.product.image.url}}"></div>
-					<div style="flex:2"><p>{{item.product.name}}</p></div>
-					<div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
-					<div style="flex:1"><p>x{{item.quantity}}</p></div>
+				<div class="box-element hidden" id="payment-info">
+					<button id="make-payment">{% trans 'Create Purchase Order' %}</button>
 				</div>
-				{% endfor %}
-				<h5>{% trans 'Items:' %}   {{order.get_cart_items}}</h5>
-				<h5>{% trans 'Total:' %}   ${{order.get_cart_total|floatformat:2}}</h5>
-			</div>
 		</div>			
 
 <script type="text/javascript">
