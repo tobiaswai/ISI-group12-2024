@@ -12,3 +12,7 @@ source env/bin/activate
 python3 manage.py runserver 8080
 
 LINK: http://127.0.0.1:8080/
+
+i18n:
+python manage.py makemessages -l zh_HAnt
+python manage.py compilemessages

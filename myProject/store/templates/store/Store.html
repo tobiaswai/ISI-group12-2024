@@ -1,11 +1,12 @@
 {% extends 'store/main.html' %}
 {% load static %}
+{% load i18n %}   
 {% block content %}
 	<nav class="navbar navbar-light bg-light justify-content-end">
 		<a class="navbar-brand"></a>
 		<form class="form-inline">
-		<input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
-		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		<input class="form-control mr-sm-2" name="q" type="search" placeholder="{% trans 'Search' %}" aria-label="Search">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans 'Search' %}</button>
 		</form>
   	</nav>
 	
@@ -16,8 +17,8 @@
 			<div class="box-element product">
 				<h6><strong>{{product.name}}</strong></h6>
 				<hr>
-				<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-				<a class="btn btn-outline-success" href="{% url 'product' product.id %}">View</a>
+				<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
+				<a class="btn btn-outline-success" href="{% url 'product' product.id %}">{% trans 'View' %}</a>
 				<h4 style="display: inline-block; float: right"><strong>
 				${{product.price|floatformat:2}}</strong></h4>
 
@@ -26,12 +27,12 @@
 		{% endfor %}
 	</div>
 	<br>
-	<a>Page: {{ page.number }}/{{ page.paginator.num_pages}}</a>
+	<a>{% trans 'Page:' %} {{ page.number }}/{{ page.paginator.num_pages}}</a>
 	<nav aria-label="...">
 		<ul class="pagination">
 		  	<li class="page-item">
 				{% if page.has_previous %}
-				<a class="page-link" href="{% url 'store' %}?page={{ page.previous_page_number }}">Previous</a>
+				<a class="page-link" href="{% url 'store' %}?page={{ page.previous_page_number }}">{% trans 'Previous' %}</a>
 				{% endif %}
 		  	</li>
 			{% for num_page in page.paginator.page_range %}
@@ -49,7 +50,7 @@
 			{% endfor %}
 			<li class="page-item">
 				{% if page.has_next %}
-				<a class="page-link" href="{% url 'store' %}?page={{ page.next_page_number }}">Next</a>
+				<a class="page-link" href="{% url 'store' %}?page={{ page.next_page_number }}">{% trans 'Next' %}</a>
 				{% endif %}
 			</li>
 		</ul>
