@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title>{% trans 'Admin Dashboard' %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -12,7 +13,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #008080;">
-		<a class="navbar-brand" href="{% url 'adminDashboard' %}">Administration Side</a>
+		<a class="navbar-brand" href="{% url 'adminDashboard' %}">{% trans 'Administration Side' %}</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -20,15 +21,15 @@
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<a style="margin-left: 8px; color: #008080">|</a>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{% url 'store' %}">Back to store</a>
+					<a class="nav-link active" aria-current="page" href="{% url 'store' %}">{% trans 'Back to store' %}</a>
 				</li>
 				<a style="margin-left: 16px; color: #008080">|</a>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{% url 'order_list' %}">Purchase orders</a>
+					<a class="nav-link active" aria-current="page" href="{% url 'order_list' %}">{% trans 'Purchase orders' %}</a>
 				</li>
 				<a style="margin-left: 16px; color: #008080">|</a>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{% url 'adminDashboard' %}">Admin Dashboard</a>
+					<a class="nav-link active" aria-current="page" href="{% url 'adminDashboard' %}">{% trans 'Admin Dashboard' %}</a>
 				</li>
 			</ul>
 		</div>
@@ -37,25 +38,25 @@
 	    <div class="form-inline my-2 my-lg-0">
 
 			{% if user.is_authenticated %}
-				<a style="margin-right: 16px; color: white">Hi {{ user.username }}! </a>
+				<a style="margin-right: 16px; color: white">{% trans 'Hi' %} {{ user.username }}! </a>
 				<form action="{% url 'logout' %}" method="post">
 					{% csrf_token %} 
-					<button class="btn btn-warning" type="submit">Logout</button>
+					<button class="btn btn-warning" type="submit">{% trans 'Logout' %}</button>
 				</form>
 			{% else %}
-				<a style="margin-right: 16px; color: white">You are not logged in. </a>
-	     		<a href="{% url 'login' %}" class="btn btn-warning">Login</a>
+				<a style="margin-right: 16px; color: white">{% trans 'You are not logged in.' %} </a>
+	     		<a href="{% url 'login' %}" class="btn btn-warning">{% trans 'Login' %}</a>
 	     	{% endif %}
 	    </div>
 	</nav>
     <div class="row">
         <div class="col-lg-6">
             <div class="box-element">
-                <h1>Product Edit</h1>
+                <h1>{% trans 'Product Edit' %}</h1>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit">Update</button>
+                    <button type="submit">{% trans 'Update' %}</button>
                 </form>                
             </div>
         </div>

@@ -5,29 +5,26 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = 'customer', null=True, blank=True)
-    full_name = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
-    password = models.CharField(max_length=200, null=True)
-    shipping_address = models.CharField(max_length=200, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = 'customer', null=True, blank=True, verbose_name=_('user'))
+    full_name = models.CharField(max_length=200, null=True, verbose_name=_('full_name'))
+    email = models.CharField(max_length=200, null=True, verbose_name=_('email'))
+    password = models.CharField(max_length=200, null=True, verbose_name=_('password'))
+    shipping_address = models.CharField(max_length=200, null=True, verbose_name=_('shipping_address'))
 
     def __str__(self):
         return str(self.full_name)
-    
-class Vendor(models.Model):
-    full_name = models.CharField(max_length=255)
 
 class Product(models.Model):
-    name = models.CharField(max_length=200, null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    brand = models.CharField(max_length=16, null=True)
-    connectivity_technology = models.CharField(max_length=32, null=True)
+    name = models.CharField(max_length=200, null=True, verbose_name=_('name'))
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('price'))
+    brand = models.CharField(max_length=16, null=True, verbose_name=_('brand'))
+    connectivity_technology = models.CharField(max_length=32, null=True, verbose_name=_('connectivity_technology'))
     digital = models.BooleanField(default=False, null=True, blank=False)
     image = models.ImageField(null=True, blank=True)
     image2 = models.ImageField(null=True, blank=True)
     image3 = models.ImageField(null=True, blank=True)
-    description = models.TextField(null=True)
-    is_active = models.BooleanField(default=True)
+    description = models.TextField(null=True, verbose_name=_('description'))
+    is_active = models.BooleanField(default=True, verbose_name=_('is_active'))
 
     def __str__(self):
         return self.name
@@ -48,19 +45,17 @@ class Product(models.Model):
 
 class Order(models.Model):
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('shipped', 'Shipped'),
-        ('cancelled', 'Cancelled'),
-        ('hold', 'Hold'),]
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-    date_ordered = models.DateTimeField(default=timezone.now)
+        ('pending', _('Pending')),
+        ('shipped', _('Shipped')),
+        ('cancelled', _('Cancelled')),
+        ('hold', _('Hold')),]
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_('customer'))
+    date_ordered = models.DateTimeField(default=timezone.now, verbose_name=_('date_ordered'))
     complete = models.BooleanField(default=False, null=True, blank=False)
-    total_amount = models.DecimalField(max_digits=100, decimal_places=2, null=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
-    shipment_date = models.DateTimeField(null=True, blank=True)
-    cancel_date = models.DateTimeField(null=True, blank=True)
-    ticket_issue_date = models.DateTimeField(null=True, blank=True)
-    refund_date = models.DateTimeField(null=True, blank=True)
+    total_amount = models.DecimalField(max_digits=100, decimal_places=2, null=True, verbose_name=_('total_amount'))
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending', verbose_name=_('status'))
+    shipment_date = models.DateTimeField(null=True, blank=True, verbose_name=_('shipment_date'))
+    cancel_date = models.DateTimeField(null=True, blank=True, verbose_name=_('cancel_date'))
 
     def __str__(self):
         return str(self.id)
@@ -98,12 +93,12 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField(default=0, null=True, blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    subtotal = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, verbose_name=_('product'))
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, verbose_name=_('order'))
+    quantity = models.IntegerField(default=0, null=True, blank=True, verbose_name=_('quantity'))
+    date_added = models.DateTimeField(auto_now_add=True, verbose_name=_('date_added'))
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, verbose_name=_('unit_price'))
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2, null=True, verbose_name=_('subtotal'))
 
     @property
     def get_total(self):

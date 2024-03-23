@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title>{% trans 'Admin Dashboard' %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -12,7 +13,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #008080;">
-		<a class="navbar-brand" href="{% url 'adminDashboard' %}">Administration Side</a>
+		<a class="navbar-brand" href="{% url 'adminDashboard' %}">{% trans 'Administration Side' %}</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -20,15 +21,15 @@
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<a style="margin-left: 8px; color: #008080">|</a>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{% url 'store' %}">Back to store</a>
+					<a class="nav-link active" aria-current="page" href="{% url 'store' %}">{% trans 'Back to store' %}</a>
 				</li>
 				<a style="margin-left: 16px; color: #008080">|</a>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{% url 'order_list' %}">Purchase orders</a>
+					<a class="nav-link active" aria-current="page" href="{% url 'order_list' %}">{% trans 'Purchase orders' %}</a>
 				</li>
 				<a style="margin-left: 16px; color: #008080">|</a>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{% url 'adminDashboard' %}">Admin Dashboard</a>
+					<a class="nav-link active" aria-current="page" href="{% url 'adminDashboard' %}">{% trans 'Admin Dashboard' %}</a>
 				</li>
 			</ul>
 		</div>
@@ -36,45 +37,47 @@
 	    <div class="form-inline my-2 my-lg-0">
 
 			{% if user.is_authenticated %}
-				<a style="margin-right: 16px; color: white">Hi {{ user.username }}! </a>
+				<a style="margin-right: 16px; color: white">{% trans 'Hi' %} {{ user.username }}! </a>
 				<form action="{% url 'logout' %}" method="post">
 					{% csrf_token %} 
-					<button class="btn btn-warning" type="submit">Logout</button>
+					<button class="btn btn-warning" type="submit">{% trans 'Logout' %}</button>
 				</form>
 			{% else %}
-				<a style="margin-right: 16px; color: white">You are not logged in. </a>
-	     		<a href="{% url 'login' %}" class="btn btn-warning">Login</a>
+				<a style="margin-right: 16px; color: white">{% trans 'You are not logged in.' %} </a>
+	     		<a href="{% url 'login' %}" class="btn btn-warning">{% trans 'Login' %}</a>
 	     	{% endif %}
 	    </div>
 	</nav>
     <div class="row">
         <div class="col-lg-6">
             <div class="box-element">
-                <h1>Admin Dashboard</h1>
+                <h1>{% trans 'Admin Dashboard' %}</h1>
                 <nav class="navbar navbar-light bg-light justify-content-">
                     <form class="form-inline">
                     <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans 'Search' %}</button>
                     </form>
                 </nav>
                 <table>
                     <tr>
                         <hr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Action</th>
+                        <th>{% trans 'ID' %}</th>
+                        <th>{% trans 'Name' %}</th>
+                        <th>{% trans 'Price' %}</th>
+                        <th>{% trans 'Active' %}</th>
+                        <th>{% trans 'Action' %}</th>
                     </tr>
                     {% for product in products %}
                     <tr>
                         <td>{{ product.id }}</td>
                         <td><a aria-current="page" href="{% url 'product_edit' product.id%}">{{ product.name }}</a></td>
                         <td>${{ product.price }}</td>
+                        <td>{{ product.is_active }}</td>
                         <td>
                             <form method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="product_id" value="{{ product.id }}">
-                                <button type="submit" name="action" value="delete">Delete</button>
+                                <button type="submit" name="action" value="delete">{% trans 'Delete' %}</button>
                             </form>
                         </td>
                     </tr>
@@ -85,7 +88,7 @@
         </div>
         <div class="col-lg-6">
             <div class="box-element">
-                <h1>Add Product</h1>
+                <h1>{% trans 'Add Product' %}</h1>
                 <hr>
                 <table>
                     <tr>
@@ -93,7 +96,7 @@
                             <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <button type="submit">Add Product</button>
+                                <button type="submit">{% trans 'Add Product' %}</button>
                             </form>
                         </td>
                     </tr>

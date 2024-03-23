@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-23 18:35+0800\n"
+"POT-Creation-Date: 2024-03-23 19:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,262 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: .\store\models.py:8
+msgid "user"
+msgstr "用戶"
+
+#: .\store\models.py:9
+msgid "full_name"
+msgstr "全名"
+
+#: .\store\models.py:10
+msgid "email"
+msgstr "郵箱"
+
+#: .\store\models.py:11
+msgid "password"
+msgstr "密碼"
+
+#: .\store\models.py:12
+msgid "shipping_address"
+msgstr "運送地址"
+
+#: .\store\models.py:18
+msgid "name"
+msgstr "賬號"
+
+#: .\store\models.py:19
+msgid "price"
+msgstr "價錢"
+
+#: .\store\models.py:20
+msgid "brand"
+msgstr "品牌"
+
+#: .\store\models.py:21
+msgid "connectivity_technology"
+msgstr "連接技術"
+
+#: .\store\models.py:26
+msgid "description"
+msgstr "介紹"
+
+#: .\store\models.py:27
+msgid "is_active"
+msgstr "顯示"
+
+#: .\store\models.py:48 .\store\templates\store\order_list.html:20
+msgid "Pending"
+msgstr "運輸中"
+
+#: .\store\models.py:49 .\store\templates\store\order_list.html:22
+msgid "Shipped"
+msgstr "已運輸"
+
+#: .\store\models.py:50 .\store\templates\store\order_list.html:23
+msgid "Cancelled"
+msgstr "已取消"
+
+#: .\store\models.py:51 .\store\templates\store\order_list.html:21
+msgid "Hold"
+msgstr "保留中"
+
+#: .\store\models.py:52
+msgid "customer"
+msgstr "顧客"
+
+#: .\store\models.py:53
+msgid "date_ordered"
+msgstr "訂單日期"
+
+#: .\store\models.py:55
+msgid "total_amount"
+msgstr "總價"
+
+#: .\store\models.py:56
+msgid "status"
+msgstr "狀態"
+
+#: .\store\models.py:57
+msgid "shipment_date"
+msgstr "運輸日期："
+
+#: .\store\models.py:58
+msgid "cancel_date"
+msgstr "取消日期："
+
+#: .\store\models.py:96
+msgid "product"
+msgstr "商品"
+
+#: .\store\models.py:97
+msgid "order"
+msgstr "訂單編號"
+
+#: .\store\models.py:98
+msgid "quantity"
+msgstr "數量"
+
+#: .\store\models.py:99
+msgid "date_added"
+msgstr "增加日期"
+
+#: .\store\models.py:100
+msgid "unit_price"
+msgstr "價錢"
+
+#: .\store\models.py:101
+msgid "subtotal"
+msgstr "總價"
+
+#: .\store\templates\adminDashboard.html:7
+#: .\store\templates\adminDashboard.html:32
+#: .\store\templates\adminDashboard.html:54
+#: .\store\templates\product_edit.html:6 .\store\templates\product_edit.html:32
+msgid "Admin Dashboard"
+msgstr "管理儀表板"
+
+#: .\store\templates\adminDashboard.html:16
+#: .\store\templates\adminLogin.html:16 .\store\templates\product_edit.html:16
+msgid "Administration Side"
+msgstr "管理員"
+
+#: .\store\templates\adminDashboard.html:24
+#: .\store\templates\product_edit.html:24
+msgid "Back to store"
+msgstr "返回主頁"
+
+#: .\store\templates\adminDashboard.html:28
+#: .\store\templates\product_edit.html:28 .\store\templates\store\Main.html:50
+msgid "Purchase orders"
+msgstr "訂單"
+
+#: .\store\templates\adminDashboard.html:40
+#: .\store\templates\adminLogin.html:33 .\store\templates\product_edit.html:41
+#: .\store\templates\store\Main.html:60
+msgid "Hi"
+msgstr "你好"
+
+#: .\store\templates\adminDashboard.html:43
+#: .\store\templates\adminLogin.html:36 .\store\templates\product_edit.html:44
+#: .\store\templates\store\Main.html:63
+msgid "Logout"
+msgstr "登出"
+
+#: .\store\templates\adminDashboard.html:46
+#: .\store\templates\adminLogin.html:39 .\store\templates\product_edit.html:47
+#: .\store\templates\store\Main.html:66
+msgid "You are not logged in."
+msgstr "你還沒有登入."
+
+#: .\store\templates\adminDashboard.html:47
+#: .\store\templates\adminLogin.html:40 .\store\templates\adminLogin.html:56
+#: .\store\templates\product_edit.html:48
+#: .\store\templates\registration\login.html:5
+#: .\store\templates\registration\login.html:12
+#: .\store\templates\store\Main.html:67
+msgid "Login"
+msgstr "登入"
+
+#: .\store\templates\adminDashboard.html:58
+#: .\store\templates\store\Store.html:8 .\store\templates\store\Store.html:9
+msgid "Search"
+msgstr "搜尋"
+
+#: .\store\templates\adminDashboard.html:64
+msgid "ID"
+msgstr "編號"
+
+#: .\store\templates\adminDashboard.html:65
+msgid "Name"
+msgstr "名稱"
+
+#: .\store\templates\adminDashboard.html:66
+#: .\store\templates\store\Cart.html:29
+msgid "Price"
+msgstr "價錢"
+
+#: .\store\templates\adminDashboard.html:67
+msgid "Active"
+msgstr "顯示"
+
+#: .\store\templates\adminDashboard.html:68
+#: .\store\templates\store\order_list.html:35
+msgid "Action"
+msgstr "動作"
+
+#: .\store\templates\adminDashboard.html:80
+msgid "Delete"
+msgstr "刪除"
+
+#: .\store\templates\adminDashboard.html:91
+#: .\store\templates\adminDashboard.html:99
+msgid "Add Product"
+msgstr "增加商品"
+
+#: .\store\templates\adminLogin.html:6 .\store\templates\adminLogin.html:45
+msgid "Admin Login"
+msgstr "管理員"
+
+#: .\store\templates\adminLogin.html:24 .\store\templates\store\Main.html:46
+msgid "Home"
+msgstr "主頁"
+
+#: .\store\templates\adminLogin.html:51 .\store\templates\register.html:8
+#: .\store\templates\registration\login.html:8
+msgid "Username:"
+msgstr "賬號："
+
+#: .\store\templates\adminLogin.html:53 .\store\templates\register.html:10
+#: .\store\templates\registration\login.html:10
+msgid "Password:"
+msgstr "密碼："
+
+#: .\store\templates\adminLogin.html:55
+msgid "Please logout user account before login admin site"
+msgstr "請在登入管理網站之前登出使用者帳戶"
+
+#: .\store\templates\product_edit.html:55
+msgid "Product Edit"
+msgstr "商品修改"
+
+#: .\store\templates\product_edit.html:59
+msgid "Update"
+msgstr "更新"
+
+#: .\store\templates\register.html:5
+msgid "Sign up"
+msgstr "註冊"
+
+#: .\store\templates\register.html:12
+msgid "Confirm Password:"
+msgstr "密碼："
+
+#: .\store\templates\register.html:14
+msgid "Email:"
+msgstr "郵箱："
+
+#: .\store\templates\register.html:16
+msgid "Fullname:"
+msgstr "全民："
+
+#: .\store\templates\register.html:18
+#: .\store\templates\store\order_detail.html:19
+msgid "shipping address:"
+msgstr "運送地址:"
+
+#: .\store\templates\register.html:20
+msgid "Sign Up"
+msgstr "註冊"
+
+#: .\store\templates\registration\login.html:14
+msgid "you don't have a account?"
+msgstr "你沒有帳戶？"
+
+#: .\store\templates\registration\login.html:15
+msgid "Register"
+msgstr "註冊"
+
 #: .\store\templates\store\Cart.html:9
 msgid "Continue Shopping"
 msgstr "返回購物"
@@ -25,12 +281,12 @@ msgstr "返回購物"
 #: .\store\templates\store\Cart.html:15
 #: .\store\templates\store\Checkout.html:39
 msgid "Items:"
-msgstr "總數"
+msgstr "總數："
 
 #: .\store\templates\store\Cart.html:16
 #: .\store\templates\store\Checkout.html:40
 msgid "Total:"
-msgstr "總價"
+msgstr "總價："
 
 #: .\store\templates\store\Cart.html:18
 msgid "Checkout"
@@ -39,10 +295,6 @@ msgstr "付款"
 #: .\store\templates\store\Cart.html:28
 msgid "Item"
 msgstr "商品"
-
-#: .\store\templates\store\Cart.html:29
-msgid "Price"
-msgstr "價錢"
 
 #: .\store\templates\store\Cart.html:30
 #: .\store\templates\store\order_detail.html:28
@@ -77,37 +329,9 @@ msgstr "建立訂單"
 msgid "Loyal Electronics Square"
 msgstr "忠誠電器廣場"
 
-#: .\store\templates\store\Main.html:46
-msgid "Home"
-msgstr "主頁"
-
-#: .\store\templates\store\Main.html:50
-msgid "Purchase orders"
-msgstr "訂單"
-
 #: .\store\templates\store\Main.html:54
 msgid "Admin side"
 msgstr "管理員"
-
-#: .\store\templates\store\Main.html:60
-msgid "Hi"
-msgstr "你好"
-
-#: .\store\templates\store\Main.html:63
-msgid "Logout"
-msgstr "登出"
-
-#: .\store\templates\store\Main.html:66
-msgid "You are not logged in."
-msgstr "你還沒有登入"
-
-#: .\store\templates\store\Main.html:67
-msgid "Login"
-msgstr "登入"
-
-#: .\store\templates\store\Store.html:8 .\store\templates\store\Store.html:9
-msgid "Search"
-msgstr "搜尋"
 
 #: .\store\templates\store\Store.html:20
 #: .\store\templates\store\product.html:20
@@ -134,10 +358,6 @@ msgstr "訂單編號:"
 msgid "Date:"
 msgstr "日期:"
 
-#: .\store\templates\store\order_detail.html:19
-msgid "shipping address:"
-msgstr "運送地址:"
-
 #: .\store\templates\store\order_detail.html:20
 msgid "Total Amount:"
 msgstr "總價"
@@ -160,11 +380,11 @@ msgstr "總價"
 
 #: .\store\templates\store\order_detail.html:42
 msgid "Shipment Date:"
-msgstr "運輸日期:"
+msgstr "運輸日期："
 
 #: .\store\templates\store\order_detail.html:43
 msgid "Cancel Date:"
-msgstr "取消日期:"
+msgstr "取消日期："
 
 #: .\store\templates\store\order_list.html:15
 msgid "Purchase Orders List"
@@ -174,33 +394,17 @@ msgstr "訂單內容"
 msgid "All"
 msgstr "全部"
 
-#: .\store\templates\store\order_list.html:20
-msgid "Pending"
-msgstr "運輸中"
-
-#: .\store\templates\store\order_list.html:21
-msgid "Hold"
-msgstr "保留中"
-
-#: .\store\templates\store\order_list.html:22
-msgid "Shipped"
-msgstr "已運輸"
-
-#: .\store\templates\store\order_list.html:23
-msgid "Cancelled"
-msgstr "已取消"
-
 #: .\store\templates\store\order_list.html:26
 msgid "Filter"
 msgstr "篩選"
 
 #: .\store\templates\store\order_list.html:30
 msgid "Order ID"
-msgstr "訂單編號:"
+msgstr "訂單編號"
 
 #: .\store\templates\store\order_list.html:31
 msgid "Date"
-msgstr "日期:"
+msgstr "日期："
 
 #: .\store\templates\store\order_list.html:32
 msgid "Customer"
@@ -213,10 +417,6 @@ msgstr "總價"
 #: .\store\templates\store\order_list.html:34
 msgid "Status"
 msgstr "狀態"
-
-#: .\store\templates\store\order_list.html:35
-msgid "Action"
-msgstr "動作"
 
 #: .\store\templates\store\order_list.html:51
 msgid "Mark as Hold"
@@ -232,15 +432,15 @@ msgstr "取消訂單:"
 
 #: .\store\templates\store\product.html:17
 msgid "Brand: "
-msgstr "品牌:"
+msgstr "品牌："
 
 #: .\store\templates\store\product.html:18
 msgid "Connectivity Technology: "
-msgstr "連接技術:"
+msgstr "連接技術："
 
 #: .\store\templates\store\product.html:19
 msgid "Description: "
-msgstr "介紹:"
+msgstr "介紹："
 
 #: .\store\templates\store\product.html:24
 msgid "Previous image"

@@ -1,22 +1,23 @@
 {% extends 'store/main.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
-<h1> Sign up </h1>
+<h1>{% trans 'Sign up' %}  </h1>
 <form method="post">
     {% csrf_token %}
-    <label for="username">Username:</label>
+    <label for="username">{% trans 'Username:' %}</label>
     <input type="text" name="username" required><br>
-    <label for="password">Password:</label>
+    <label for="password">{% trans 'Password:' %}</label>
     <input type="password" name="password" required><br>
-	<label for="password2">Confirm Password:</label>
+	<label for="password2">{% trans 'Confirm Password:' %}</label>
     <input type="password" name="password2" required><br>
-    <label for="email">Email:</label>
+    <label for="email">{% trans 'Email:' %}</label>
     <input type="email" name="email" required><br>
-    <label for="full_name">Fullname:</label>
+    <label for="full_name">{% trans 'Fullname:' %}</label>
     <input type="full_name" name="full_name" required><br>
-	<label for="shipping_address">shipping address:</label>
+	<label for="shipping_address">{% trans 'shipping address:' %}</label>
     <input type="shipping_address" name="shipping_address" required><br>
-    <button type="submit">Sign Up</button>
+    <button type="submit">{% trans 'Sign Up' %}</button>
 	<h3 style="color:red;">{{msg}}</h3>
 </form>
 {% endblock content %}

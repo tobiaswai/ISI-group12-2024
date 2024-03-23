@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 <html>
 <head>
-    <title>Admin Login</title>
+    <title>{% trans 'Admin Login' %}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
@@ -12,7 +13,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #008080;">
-		<a class="navbar-brand" href="{% url 'store' %}">Administration Side</a>
+		<a class="navbar-brand" href="{% url 'store' %}">{% trans 'Administration Side' %}</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -20,7 +21,7 @@
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<a style="margin-left: 8px; color: #008080">|</a>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{% url 'store' %}">Home</a>
+					<a class="nav-link active" aria-current="page" href="{% url 'store' %}">{% trans 'Home' %}</a>
 				</li>
 				<a style="margin-left: 16px; color: #008080">|</a>
 				</li>
@@ -29,30 +30,30 @@
         <div class="form-inline my-2 my-lg-0">
 
 			{% if user.is_authenticated %}
-				<a style="margin-right: 16px; color: white">Hi {{ user.username }}! </a>
+				<a style="margin-right: 16px; color: white">{% trans 'Hi' %} {{ user.username }}! </a>
 				<form action="{% url 'logout' %}" method="post">
 					{% csrf_token %} 
-					<button class="btn btn-warning" type="submit">Logout</button>
+					<button class="btn btn-warning" type="submit">{% trans 'Logout' %}</button>
 				</form>
 			{% else %}
-				<a style="margin-right: 16px; color: white">You are not logged in. </a>
-	     		<a href="{% url 'login' %}" class="btn btn-warning">Login</a>
+				<a style="margin-right: 16px; color: white">{% trans 'You are not logged in.' %} </a>
+	     		<a href="{% url 'login' %}" class="btn btn-warning">{% trans 'Login' %}</a>
 	     	{% endif %}
 	    </div>
 	</nav>
     <div class="col-lg-6">
-            <h1>Admin Login</h1>
+            <h1>{% trans 'Admin Login' %}</h1>
             {% if error_msg %}
                 <p>{{ error_msg }}</p>
             {% endif %}
             <form method="post">
                 {% csrf_token %}
-                <label for="username">Username:</label>
+                <label for="username">{% trans 'Username:' %}</label>
                 <input type="text" name="username" required><br><br>
-                <label for="password">Password:</label>
+                <label for="password">{% trans 'Password:' %}</label>
                 <input type="password" name="password" required><br><br>
-                <p style="color: red;">(Please logout user account before login admin site)</P>
-                <button type="submit">Login</button>
+                <p style="color: red;">({% trans 'Please logout user account before login admin site' %})</P>
+                <button type="submit">{% trans 'Login' %}</button>
             </form>
     </div>
 </body>
