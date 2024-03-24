@@ -31,18 +31,12 @@
 
 				
 				<h4>Product Recommendations:</h4>
-				{% for product in product %}
-				<div class="col-lg-4">
-					<img class="thumbnail" src="{{product.image.url}}">
-					<div class="box-element product">
-						<h6><strong>{{product.name}}</strong></h6>
-						<hr>
-						<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
-						<a class="btn btn-outline-success" href="{% url 'product' product.id %}">{% trans 'View' %}</a>
-						<h4 style="display: inline-block; float: right"><strong>
-						${{product.price|floatformat:2}}</strong></h4>
-		
-					</div>
+				{% for product in recommendations  %}
+				<div class="product">
+					<img src="{{ product.image }}" alt="{{ product.name }}">
+					<h2>{{ product.name }}</h2>
+					<p>{{ product.description }}</p>
+					<p>{{ product.price }}</p>
 				</div>
 				{% endfor %}
 

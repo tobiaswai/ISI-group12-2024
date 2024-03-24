@@ -185,6 +185,18 @@ def cart(request):
      context = {'products':products, 'items':items, 'order':order, 'cartItems':cartItems}
      return render(request, 'store/cart.html', context)
 
+def find_related_products(purchased_product):
+    return Product.objects.filter(category=purchased_product.category).exclude(id=purchased_product.id)
+
+def generate_recommendations(user):
+    purchase_history = Order.objects.filter(customer=user.customer, complete=True)
+    recommendations = []
+    for order in purchase_history:
+        for item in order.orderitem_set.all():
+            related_products = find_related_products(item.product)
+            recommendations.extend(related_products)
+    return recommendations
+
 @login_required
 def checkout(request):
      if request.user.is_authenticated:
@@ -196,8 +208,9 @@ def checkout(request):
           items = []
           order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
           cartItems = order['get_cart_items']
-
-     context = { 'items':items, 'order':order, 'cartItems':cartItems}
+     
+     recommendations = []
+     context = { 'items':items, 'order':order, 'cartItems':cartItems, 'recommendations': recommendations}
      return render(request, 'store/checkout.html', context)
 
 @login_required
