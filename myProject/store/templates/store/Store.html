@@ -13,7 +13,7 @@
 	<div class="row">
 		{% for product in page.object_list %}
 		<div class="col-lg-4">
-			<img class="thumbnail" src="{{product.image.url}}">
+			<img class="thumbnail" src="{{product.cover_image.url}}">
 			<div class="box-element product">
 				<h6><strong>{{product.name}}</strong></h6>
 				<hr>

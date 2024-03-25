@@ -6,7 +6,7 @@
 <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-5">
-            <img class="img-fluid rounded-start" id="productImage" src="{{products.image.url}}">
+            <img class="img-fluid rounded-start" id="productImage" src="{{products.cover_image.url}}">
         </div>
         <div class="col-md-6">
             <div class="card-body">
@@ -25,12 +25,16 @@
                 <button onclick="nextImage()">{% trans 'Next image' %}</button>
             </div>
         </div>
+        {% for images in image %}
+        <img class="img-fluid rounded-start" id="productImage" src="{{images}}">
+        {% endfor %}
+
         
         
 </div>
 
     <script>
-    var images = ["{{products.image.url}}", "{{products.image2.url}}", "{{products.image3.url}}"];  // replace with your actual image URLs
+    var images = ["{{products.cover_image.url}}", "{{products.cover_image.url}}", "{{products.cover_image.url}}"];  // replace with your actual image URLs
     var currentImageIndex = 0;
     
     function previousImage() {

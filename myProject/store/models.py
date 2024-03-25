@@ -20,9 +20,7 @@ class Product(models.Model):
     brand = models.CharField(max_length=16, null=True, verbose_name=_('brand'))
     connectivity_technology = models.CharField(max_length=32, null=True, verbose_name=_('connectivity_technology'))
     digital = models.BooleanField(default=False, null=True, blank=False)
-    image = models.ImageField(null=True, blank=True)
-    image2 = models.ImageField(null=True, blank=True)
-    image3 = models.ImageField(null=True, blank=True)
+    cover_image = models.ImageField(null=True, blank=True)
     description = models.TextField(null=True, verbose_name=_('description'))
     is_active = models.BooleanField(default=True, verbose_name=_('is_active'))
 
@@ -34,15 +32,18 @@ class Product(models.Model):
         urls = []
         try:
             if self.image:
-                urls.append(self.image.url)
-            if self.image2:
-                urls.append(self.image2.url)
-            if self.image3:
-                urls.append(self.image3.url)
+                urls.append(self.cover_image.url)
         except:
             pass  # handle the exception as needed
         return urls
 
+class Image(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, verbose_name=_('product'))
+    image = models.ImageField(upload_to='')
+
+    def __str__(self):
+        return self.product.name
+    
 class Order(models.Model):
     STATUS_CHOICES = [
         ('pending', _('Pending')),

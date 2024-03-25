@@ -165,7 +165,8 @@ def product(request, pk):
           cartItems = order['get_cart_items']
      
      product = Product.objects.get(id=pk)
-     context = {'products':product, 'cartItems':cartItems}
+     image = Image.objects.filter(product=product)
+     context = {'products':product, 'cartItems':cartItems, 'image':image}
      return render(request, 'store/product.html', context)
 
 @login_required
