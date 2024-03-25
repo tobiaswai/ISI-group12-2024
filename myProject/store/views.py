@@ -11,8 +11,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django import forms
-from .forms import ProductForm
+from .forms import *
 from django.contrib import messages
+from django.views.generic import *
 
 
 def register(request):
@@ -112,8 +113,6 @@ def adminDashboard(request):
      else:
           return render(request, 'adminLogin.html', locals())
 
-
-
 class ProductUpdateView(View):
     def get(self, request, product_id):
         product = Product.objects.get(id=product_id)
@@ -127,6 +126,33 @@ class ProductUpdateView(View):
             form.save()
             return redirect('/adminDashboard', product_id=product_id)
         
+class addImageView(CreateView):
+     form_class = ImageForm
+     success_url = '/adminDashboard'
+     template_name = 'add_images.html'
+
+def Productphotos(request,product_id):
+     images= Image.objects.filter(product=product_id)
+     context = {'images':images}
+
+     if 'action' in request.POST:
+          image = request.POST.get('image_id')
+          action = request.POST.get('action')
+
+          if action == 'delete':
+               image = Image.objects.get(id=image)
+               image.delete()
+
+     return render(request, 'product_images.html', context)
+
+
+class updateImageView(UpdateView):
+     model = Image
+     form_class = ImageForm
+     success_url = '/adminDashboard'
+     template_name = 'update_images.html'
+
+
 def store(request):
 
      if request.user.is_authenticated:

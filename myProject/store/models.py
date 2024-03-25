@@ -39,7 +39,7 @@ class Product(models.Model):
 
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, verbose_name=_('product'))
-    image = models.ImageField(upload_to='')
+    image = models.ImageField(upload_to='', verbose_name=_('image'))
 
     def __str__(self):
         return self.product.name
