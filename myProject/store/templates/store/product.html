@@ -6,7 +6,17 @@
 <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-5">
-            <img class="img-fluid rounded-start" id="productImage" src="{{products.cover_image.url}}">
+            <img class="img-fluid rounded-start" id="coverImage" src="{{products.cover_image.url}}">
+            <div class="row-md-5">
+                <button type="button" onclick="change_image('{{products.cover_image.url}}')">
+                    <img class="img-fluid rounded-start" id="coverImage1" width=100px height=200px src="{{products.cover_image.url}}">
+                </button>
+                {% for images in image %}
+                <button type="button" onclick="change_image('{{images.image.url}}')">
+                <img class="img-fluid rounded-start" id="productImage" width=100px height=200px src="{{images.image.url}}">
+                </button>
+                {% endfor %}
+            </div>
         </div>
         <div class="col-md-6">
             <div class="card-body">
@@ -20,40 +30,13 @@
                 <button data-product="{{products.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
             </div>
             
-            <div class=" card-body">
-                <button onclick="previousImage()">{% trans 'Previous image' %}</button>
-                <button onclick="nextImage()">{% trans 'Next image' %}</button>
-            </div>
-        </div>
-        {% for images in image %}
-        <img class="img-fluid rounded-start" id="productImage" src="{{images}}">
-        {% endfor %}
 
-        
-        
+        </div>
 </div>
 
-    <script>
-    var images = ["{{products.cover_image.url}}", "{{products.cover_image.url}}", "{{products.cover_image.url}}"];  // replace with your actual image URLs
-    var currentImageIndex = 0;
-    
-    function previousImage() {
-        if (currentImageIndex > 0) {
-            currentImageIndex--;
-        } else {
-            currentImageIndex = images.length - 1;  // wrap around to the last image
-        }
-        document.getElementById("productImage").src = images[currentImageIndex];
+<script>
+    function change_image(x) {
+        coverImage.src = x
     }
-    
-    function nextImage() {
-        if (currentImageIndex < images.length - 1) {
-            currentImageIndex++;
-        } else {
-            currentImageIndex = 0;  // wrap around to the first image
-        }
-        document.getElementById("productImage").src = images[currentImageIndex];
-    }
-    </script>
-
+</script>
 {% endblock content %}
