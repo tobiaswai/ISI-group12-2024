@@ -6,10 +6,10 @@
 <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-5">
-            <img class="img-fluid rounded-start" id="coverImage" src="{{products.cover_image.url}}">
+            <img class="img-fluid rounded-start" id="coverImage" src="{{product.cover_image.url}}">
             <div class="row-md-5">
-                <button type="button" onclick="change_image('{{products.cover_image.url}}')">
-                    <img class="img-fluid rounded-start" id="coverImage1" width=100px height=200px src="{{products.cover_image.url}}">
+                <button type="button" onclick="change_image('{{product.cover_image.url}}')">
+                    <img class="img-fluid rounded-start" id="coverImage1" width=100px height=200px src="{{product.cover_image.url}}">
                 </button>
                 {% for images in image %}
                 <button type="button" onclick="change_image('{{images.image.url}}')">
@@ -20,18 +20,38 @@
         </div>
         <div class="col-md-6">
             <div class="card-body">
-                <h6><strong>{{products.name}}</strong></h6>
+                <h6><strong>{{product.name}}</strong></h6>
                 <h4 style="display: inline-block"><strong>
-                    ${{products.price|floatformat:2}}</strong></h4>
+                    ${{product.price|floatformat:2}}</strong></h4>
                 <br>
-                <p>{% trans 'Brand: ' %}{{products.brand}}</p>
-                <p>{% trans 'Connectivity Technology: ' %}{{products.color}}</p>
-                <p>{% trans 'Description: ' %}{{products.description}}</p>
-                <button data-product="{{products.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
+                <p>{% trans 'Brand: ' %}{{product.brand}}</p>
+                <p>{% trans 'Connectivity Technology: ' %}{{product.connectivity_technology}}</p>
+                <p>{% trans 'Description: ' %}{{product.description}}</p>
+                <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
             </div>
             
 
         </div>
+</div>
+<div class="card mb-3">
+    <div class="row">
+        {% for products in products %}
+        {% if products.id != product.id %}
+        <div class="col-lg-3">
+            <img class="thumbnail" src="{{products.cover_image.url}}">
+            <div class="box-element product">
+                <h6><strong>{{products.name}}</strong></h6>
+                <hr>
+                <button data-product="{{products.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
+                <a class="btn btn-outline-success" href="{% url 'product' products.id %}">{% trans 'View' %}</a>
+                <h4 style="display: inline-block; float: right"><strong>
+                ${{products.price|floatformat:2}}</strong></h4>
+
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
 </div>
 
 <script>

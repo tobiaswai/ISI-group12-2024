@@ -175,7 +175,8 @@ def store(request):
      page_list = request.GET.get('page')
      page = page.get_page(page_list)
      products = Product.objects.filter(is_active=True)
-     context = {'products':products, 'cartItems':cartItems, 'page': page}
+     best_sale = Product.objects.filter(best_sale=True)
+     context = {'products':products, 'cartItems':cartItems, 'page': page, 'best_sale': best_sale}
      return render(request, 'store/store.html', context)
 
 def product(request, pk):
@@ -191,8 +192,9 @@ def product(request, pk):
           cartItems = order['get_cart_items']
      
      product = Product.objects.get(id=pk)
+     products = Product.objects.filter(Q(brand=product.brand) | Q(connectivity_technology=product.connectivity_technology))   
      image = Image.objects.filter(product=product)
-     context = {'products':product, 'cartItems':cartItems, 'image':image}
+     context = {'product':product, 'cartItems':cartItems, 'image':image, 'products':products}
      return render(request, 'store/product.html', context)
 
 @login_required
@@ -235,9 +237,8 @@ def checkout(request):
           items = []
           order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
           cartItems = order['get_cart_items']
-     
-     recommendations = []
-     context = { 'items':items, 'order':order, 'cartItems':cartItems, 'recommendations': recommendations}
+
+     context = { 'items':items, 'order':order, 'cartItems':cartItems,}
      return render(request, 'store/checkout.html', context)
 
 @login_required

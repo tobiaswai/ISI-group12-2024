@@ -23,6 +23,7 @@ class Product(models.Model):
     cover_image = models.ImageField(null=True, blank=True)
     description = models.TextField(null=True, verbose_name=_('description'))
     is_active = models.BooleanField(default=True, verbose_name=_('is_active'))
+    best_sale = models.BooleanField(default=False, verbose_name=_('best_sale'))
 
     def __str__(self):
         return str(self.id)

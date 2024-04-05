@@ -2,6 +2,23 @@
 {% load static %}
 {% load i18n %}   
 {% block content %}
+
+	<div class="row">
+		{% for product in best_sale %}
+		<div class="col-lg-2">
+			<img class="thumbnail" src="{{product.cover_image.url}}">
+			<div class="box-element product">
+				<h6><strong>{{product.name}}</strong></h6>
+				<hr>
+				<a class="btn btn-outline-success" href="{% url 'product' product.id %}">{% trans 'View' %}</a>
+				<h4 style="display: inline-block; float: right"><strong>
+				${{product.price|floatformat:2}}</strong></h4>
+
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
 	<nav class="navbar navbar-light bg-light justify-content-end">
 		<a class="navbar-brand"></a>
 		<form class="form-inline">

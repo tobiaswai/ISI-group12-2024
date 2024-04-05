@@ -4,7 +4,7 @@ from .models import *
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name','price','brand','connectivity_technology','cover_image','description','is_active']
+        fields = ['name','name_en','name_zh_hant','price','brand','connectivity_technology','cover_image','description','description_en','description_zh_hant','is_active','best_sale']
 
 
 class ImageForm(forms.ModelForm):
