@@ -11,6 +11,7 @@
 				<br>
 				<br>
 				<table class="table">
+					<h3>{% trans 'My Cart:' %}</h3>
 					<tr>
 						<th><h5>{% trans 'Items:' %} <strong>{{order.get_cart_items}}</strong></h5></th>
 						<th><h5>{% trans 'Total:' %}<strong> ${{order.get_cart_total|floatformat:2}}</strong></h5></th>

@@ -2,13 +2,13 @@
 {% load static %}
 {% load i18n %}   
 {% block content %}
-
+	<h3 style="color: orange;"><strong>{% trans 'Best Sale' %}</strong></h3>
 	<div class="row">
 		{% for product in best_sale %}
-		<div class="col-lg-2">
+		<div class="col-lg-3">
 			<img class="thumbnail" src="{{product.cover_image.url}}">
 			<div class="box-element product">
-				<h6><strong>{{product.name}}</strong></h6>
+				<h5><strong>{{product.name}}</strong></h5>
 				<hr>
 				<a class="btn btn-outline-success" href="{% url 'product' product.id %}">{% trans 'View' %}</a>
 				<h4 style="display: inline-block; float: right"><strong>
@@ -18,9 +18,9 @@
 		</div>
 		{% endfor %}
 	</div>
-
+	<br>
 	<nav class="navbar navbar-light bg-light justify-content-end">
-		<a class="navbar-brand"></a>
+		<a class="navbar-brand" style="margin-right: 675px;"><strong>{% trans 'All products' %}</strong></a>
 		<form class="form-inline">
 		<input class="form-control mr-sm-2" name="q" type="search" placeholder="{% trans 'Search' %}" aria-label="Search">
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans 'Search' %}</button>
@@ -32,7 +32,7 @@
 		<div class="col-lg-4">
 			<img class="thumbnail" src="{{product.cover_image.url}}">
 			<div class="box-element product">
-				<h6><strong>{{product.name}}</strong></h6>
+				<h5><strong>{{product.name}}</strong></h5>
 				<hr>
 				<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
 				<a class="btn btn-outline-success" href="{% url 'product' product.id %}">{% trans 'View' %}</a>

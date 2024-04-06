@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-6">
             <div class="card-body">
-                <h6><strong>{{product.name}}</strong></h6>
+                <h4><strong>{{product.name}}</strong></h4>
                 <h4 style="display: inline-block"><strong>
                     ${{product.price|floatformat:2}}</strong></h4>
                 <br>
@@ -29,15 +29,15 @@
                 <p>{% trans 'Description: ' %}{{product.description}}</p>
                 <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
             </div>
-            
-
         </div>
 </div>
+<br>
 <div class="card mb-3">
+    <h3><strong>Product recommendations:</strong></h3>
     <div class="row">
         {% for products in products %}
         {% if products.id != product.id %}
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <img class="thumbnail" src="{{products.cover_image.url}}">
             <div class="box-element product">
                 <h6><strong>{{products.name}}</strong></h6>

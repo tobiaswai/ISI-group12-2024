@@ -171,11 +171,11 @@ def store(request):
      else:
           products = Product.objects.filter(is_active=True)
           
-     page = Paginator(products, 6)
+     page = Paginator(products, 9)
      page_list = request.GET.get('page')
      page = page.get_page(page_list)
      products = Product.objects.filter(is_active=True)
-     best_sale = Product.objects.filter(best_sale=True)
+     best_sale = Product.objects.filter(best_sale=True).order_by('-id')
      context = {'products':products, 'cartItems':cartItems, 'page': page, 'best_sale': best_sale}
      return render(request, 'store/store.html', context)
 
