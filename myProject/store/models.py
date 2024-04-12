@@ -20,10 +20,9 @@ class Product(models.Model):
     brand = models.CharField(max_length=16, null=True, verbose_name=_('brand'))
     connectivity_technology = models.CharField(max_length=32, null=True, verbose_name=_('connectivity_technology'))
     digital = models.BooleanField(default=False, null=True, blank=False)
-    cover_image = models.ImageField(null=True, blank=True)
+    cover_image = models.ImageField(null=True, blank=True, verbose_name=_('cover_image'))
     description = models.TextField(null=True, verbose_name=_('description'))
     is_active = models.BooleanField(default=True, verbose_name=_('is_active'))
-    best_sale = models.BooleanField(default=False, verbose_name=_('best_sale'))
 
     def __str__(self):
         return str(self.id)

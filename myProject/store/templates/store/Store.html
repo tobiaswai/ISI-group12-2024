@@ -2,9 +2,9 @@
 {% load static %}
 {% load i18n %}   
 {% block content %}
-	<h3 style="color: orange;"><strong>{% trans 'Best Sellers' %}</strong></h3>
+	<h3 style="color: orange;"><strong>{% trans 'Newest Products' %}</strong></h3>
 	<div class="row">
-		{% for product in best_sale %}
+		{% for product in newest %}
 		<div class="col-lg-3">
 			<img class="thumbnail" src="{{product.cover_image.url}}">
 			<div class="box-element product">
@@ -72,5 +72,20 @@
 			</li>
 		</ul>
 	  </nav>
+	  <h1>Top Selling Products</h1>
+	  <div class="row">
+		{% for product in top_selling_products %}
+		<div class="col-lg-2">
+			<img class="thumbnail" src="{{product.product__cover_image.url}}">
+			<div class="box-element product">
+				<h5><strong>{{product.product__name}}</strong></h5>
+				<hr>
+				<h4 style="display: inline-block; float: left"><strong>
+					${{product.product__price}}</strong></h4>
+				<br>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
 
 {% endblock content %}

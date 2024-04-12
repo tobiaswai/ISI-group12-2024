@@ -14,6 +14,7 @@ from django import forms
 from .forms import *
 from django.contrib import messages
 from django.views.generic import *
+from django.db.models import Sum
 
 
 def register(request):
@@ -175,8 +176,9 @@ def store(request):
      page_list = request.GET.get('page')
      page = page.get_page(page_list)
      products = Product.objects.filter(is_active=True)
-     best_sale = Product.objects.filter(best_sale=True).order_by('-id')
-     context = {'products':products, 'cartItems':cartItems, 'page': page, 'best_sale': best_sale}
+     newest = Product.objects.order_by('-id')[:4]
+     top_selling_products = OrderItem.objects.values('product__id','product__name', 'product__cover_image', 'product__price').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:6]
+     context = {'products':products, 'cartItems':cartItems, 'page': page, 'newest': newest,'top_selling_products':top_selling_products}
      return render(request, 'store/store.html', context)
 
 def product(request, pk):

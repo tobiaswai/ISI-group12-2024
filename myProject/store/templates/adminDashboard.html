@@ -66,7 +66,6 @@
                         <th>{% trans 'Name' %}</th>
                         <th>{% trans 'Price' %}</th>
                         <th>{% trans 'Active' %}</th>
-                        <th>{% trans 'HotSale' %}</th>
                         <th>{% trans 'Action' %}</th>
                         <th>{% trans 'EditPhotos' %}</th>
                     </tr>
@@ -76,7 +75,6 @@
                         <td><a aria-current="page" href="{% url 'product_edit' product.id%}">{{ product.name }}</a></td>
                         <td>${{ product.price }}</td>
                         <td>{{ product.is_active }}</td>
-                        <td>{{ product.best_sale }}</td>
                         <td>
                             <form method="post">
                                 {% csrf_token %}

@@ -32,8 +32,10 @@
         </div>
 </div>
 <br>
+
 <div class="card mb-3">
-    <h3><strong>Product recommendations:</strong></h3>
+    <br>
+    <h3><strong>{% trans 'Product recommendations:' %}</strong></h3>
     <div class="row">
         {% for products in products %}
         {% if products.id != product.id %}
