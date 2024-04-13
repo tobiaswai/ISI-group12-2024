@@ -35,14 +35,14 @@
 
 <div class="card mb-3">
     <br>
-    <h3><strong>{% trans 'Product recommendations:' %}</strong></h3>
+    <h3 style="color: Teal;"><strong>{% trans 'Product recommendations:' %}</strong></h3>
     <div class="row">
         {% for products in products %}
         {% if products.id != product.id %}
         <div class="col-lg-3">
             <img class="thumbnail" src="{{products.cover_image.url}}">
             <div class="box-element product">
-                <h6><strong>{{products.name}}</strong></h6>
+                <h5><strong>{{products.name}}</strong></h5>
                 <hr>
                 <button data-product="{{products.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
                 <br>
