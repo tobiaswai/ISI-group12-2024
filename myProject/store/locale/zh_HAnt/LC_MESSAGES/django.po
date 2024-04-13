@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-12 21:41+0800\n"
+"POT-Creation-Date: 2024-04-13 19:43+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,6 +54,12 @@ msgstr "品牌"
 msgid "connectivity_technology"
 msgstr "連接技術"
 
+#: .\store\models.py:23
+#, fuzzy
+#| msgid "image"
+msgid "cover_image"
+msgstr "照片"
+
 #: .\store\models.py:24
 msgid "description"
 msgstr "介紹"
@@ -62,75 +68,71 @@ msgstr "介紹"
 msgid "is_active"
 msgstr "顯示"
 
-#: .\store\models.py:26
-msgid "best_sale"
-msgstr "暢銷商品"
-
-#: .\store\models.py:42 .\store\models.py:98
+#: .\store\models.py:41 .\store\models.py:97
 msgid "product"
 msgstr "商品"
 
-#: .\store\models.py:43
+#: .\store\models.py:42
 msgid "image"
 msgstr "照片"
 
-#: .\store\models.py:50 .\store\templates\store\order_list.html:20
+#: .\store\models.py:49 .\store\templates\store\order_list.html:20
 msgid "Pending"
 msgstr "運輸中"
 
-#: .\store\models.py:51 .\store\templates\store\order_list.html:22
+#: .\store\models.py:50 .\store\templates\store\order_list.html:22
 msgid "Shipped"
 msgstr "已運輸"
 
-#: .\store\models.py:52 .\store\templates\store\order_list.html:23
+#: .\store\models.py:51 .\store\templates\store\order_list.html:23
 msgid "Cancelled"
 msgstr "已取消"
 
-#: .\store\models.py:53 .\store\templates\store\order_list.html:21
+#: .\store\models.py:52 .\store\templates\store\order_list.html:21
 msgid "Hold"
 msgstr "保留中"
 
-#: .\store\models.py:54
+#: .\store\models.py:53
 msgid "customer"
 msgstr "顧客"
 
-#: .\store\models.py:55
+#: .\store\models.py:54
 msgid "date_ordered"
 msgstr "訂單日期"
 
-#: .\store\models.py:57
+#: .\store\models.py:56
 msgid "total_amount"
 msgstr "總價"
 
-#: .\store\models.py:58
+#: .\store\models.py:57
 msgid "status"
 msgstr "狀態"
 
-#: .\store\models.py:59
+#: .\store\models.py:58
 msgid "shipment_date"
 msgstr "運輸日期："
 
-#: .\store\models.py:60
+#: .\store\models.py:59
 msgid "cancel_date"
 msgstr "取消日期："
 
-#: .\store\models.py:99
+#: .\store\models.py:98
 msgid "order"
 msgstr "訂單編號"
 
-#: .\store\models.py:100
+#: .\store\models.py:99
 msgid "quantity"
 msgstr "數量"
 
-#: .\store\models.py:101
+#: .\store\models.py:100
 msgid "date_added"
 msgstr "增加日期"
 
-#: .\store\models.py:102
+#: .\store\models.py:101
 msgid "unit_price"
 msgstr "價錢"
 
-#: .\store\models.py:103
+#: .\store\models.py:102
 msgid "subtotal"
 msgstr "總價"
 
@@ -211,13 +213,13 @@ msgid "All Images"
 msgstr ""
 
 #: .\store\templates\add_images.html:62
-#: .\store\templates\adminDashboard.html:96
-#: .\store\templates\adminDashboard.html:104
+#: .\store\templates\adminDashboard.html:94
+#: .\store\templates\adminDashboard.html:102
 msgid "Add Product"
 msgstr "增加商品"
 
 #: .\store\templates\adminDashboard.html:58
-#: .\store\templates\store\Store.html:25 .\store\templates\store\Store.html:26
+#: .\store\templates\store\Store.html:43 .\store\templates\store\Store.html:44
 msgid "Search"
 msgstr "搜尋"
 
@@ -244,19 +246,15 @@ msgid "Active"
 msgstr "顯示"
 
 #: .\store\templates\adminDashboard.html:69
-msgid "HotSale"
-msgstr ""
-
-#: .\store\templates\adminDashboard.html:70
 #: .\store\templates\store\order_list.html:35
 msgid "Action"
 msgstr "動作"
 
-#: .\store\templates\adminDashboard.html:71
+#: .\store\templates\adminDashboard.html:70
 msgid "EditPhotos"
 msgstr ""
 
-#: .\store\templates\adminDashboard.html:84
+#: .\store\templates\adminDashboard.html:82
 #: .\store\templates\product_images.html:65
 msgid "Delete"
 msgstr "刪除"
@@ -367,8 +365,8 @@ msgstr "數量"
 msgid "Total"
 msgstr "總價"
 
-#: .\store\templates\store\Cart.html:39 .\store\templates\store\Store.html:13
-#: .\store\templates\store\Store.html:38
+#: .\store\templates\store\Cart.html:39 .\store\templates\store\Store.html:30
+#: .\store\templates\store\Store.html:56
 #: .\store\templates\store\product.html:48
 msgid "View"
 msgstr "詳細"
@@ -405,29 +403,33 @@ msgstr "英文"
 msgid "Chinese"
 msgstr "中文"
 
-#: .\store\templates\store\Store.html:5
+#: .\store\templates\store\Store.html:6
+msgid "Top Selling Products"
+msgstr "暢銷商品"
+
+#: .\store\templates\store\Store.html:22
 msgid "Newest Products"
 msgstr "最新商品"
 
-#: .\store\templates\store\Store.html:23
+#: .\store\templates\store\Store.html:41
 msgid "All products"
 msgstr "所有商品"
 
-#: .\store\templates\store\Store.html:37
+#: .\store\templates\store\Store.html:55
 #: .\store\templates\store\product.html:30
 #: .\store\templates\store\product.html:47
 msgid "Add to Cart"
 msgstr "加入購物車"
 
-#: .\store\templates\store\Store.html:47
+#: .\store\templates\store\Store.html:65
 msgid "Page:"
 msgstr "頁數"
 
-#: .\store\templates\store\Store.html:52
+#: .\store\templates\store\Store.html:70
 msgid "Previous"
 msgstr "上一頁"
 
-#: .\store\templates\store\Store.html:70
+#: .\store\templates\store\Store.html:88
 msgid "Next"
 msgstr "下一頁"
 
@@ -530,6 +532,9 @@ msgstr "產品推薦："
 #: .\store\templates\update_images.html:55
 msgid "Image Edit"
 msgstr "更改照片"
+
+#~ msgid "best_sale"
+#~ msgstr "暢銷商品"
 
 #~ msgid "Previous image"
 #~ msgstr "上一張照片"

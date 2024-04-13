@@ -51,6 +51,26 @@
 				</div>
 				{% endfor %}
 			</div>
+			<hr>
+			<h3 style="color: orange;"><strong>{% trans 'Top Selling Products' %}</strong></h3>
+			<div class="row">
+				{% for product in top_selling_products %}
+				<div class="col-lg-2">
+					<img class="thumbnail" src="/images/{{product.product__cover_image}}">
+					<div class="box-element product">
+						<h5><strong>{{product.product__name}}</strong></h5>
+						<hr>
+						<button data-product="{{product.product__id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">{% trans 'Add to Cart' %}</button>
+						<br>
+						<a class="btn btn-outline-success" href="{% url 'product' product.product__id %}">{% trans 'View' %}</a>
+						<br>
+						<h4 style="display: inline-block; float: right"><strong>
+							${{product.product__price}}</strong></h4>
+						<br>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 {% endblock content %}

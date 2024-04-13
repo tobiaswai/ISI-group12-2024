@@ -213,7 +213,8 @@ def cart(request):
           cartItems = order['get_cart_items']
 
      products = Product.objects.all()
-     context = {'products':products, 'items':items, 'order':order, 'cartItems':cartItems}
+     top_selling_products = OrderItem.objects.values('product__id','product__name', 'product__cover_image', 'product__price').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:6]
+     context = {'products':products, 'items':items, 'order':order, 'cartItems':cartItems,'top_selling_products':top_selling_products}
      return render(request, 'store/cart.html', context)
 
 def find_related_products(purchased_product):
