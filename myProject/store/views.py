@@ -177,7 +177,7 @@ def store(request):
      page = page.get_page(page_list)
      products = Product.objects.filter(is_active=True)
      newest = Product.objects.order_by('-id')[:4]
-     top_selling_products = OrderItem.objects.values('product__id','product__name', 'product__cover_image', 'product__price').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:6]
+     top_selling_products = OrderItem.objects.values('product__id','product__name', 'product__cover_image', 'product__price').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:4]
      context = {'products':products, 'cartItems':cartItems, 'page': page, 'newest': newest,'top_selling_products':top_selling_products}
      return render(request, 'store/store.html', context)
 
@@ -213,7 +213,7 @@ def cart(request):
           cartItems = order['get_cart_items']
 
      products = Product.objects.all()
-     top_selling_products = OrderItem.objects.values('product__id','product__name', 'product__cover_image', 'product__price').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:6]
+     top_selling_products = OrderItem.objects.values('product__id','product__name', 'product__cover_image', 'product__price').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:4]
      context = {'products':products, 'items':items, 'order':order, 'cartItems':cartItems,'top_selling_products':top_selling_products}
      return render(request, 'store/cart.html', context)
 
