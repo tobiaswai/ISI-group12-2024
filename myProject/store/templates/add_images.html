@@ -51,7 +51,7 @@
 	</nav>
         <div class="col-lg-6">
             <div class="box-element">
-                <h1>{% trans 'All Images' %}</h1>
+                <h1>{% trans 'Add Image' %}</h1>
                 <hr>
                 <table>
                     <tr>
@@ -59,7 +59,7 @@
                             <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <button type="submit">{% trans 'Add Product' %}</button>
+                                <button type="submit">{% trans 'Add Image' %}</button>
                             </form>
                         </td>
                     </tr>

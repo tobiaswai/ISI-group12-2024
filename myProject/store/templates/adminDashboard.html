@@ -57,7 +57,7 @@
                     <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans 'Search' %}</button>
                     </form>
-                    <a class="btn btn-outline-success" href="{% url 'add_images' %}">{% trans 'Add Product Photos' %}</a>
+                    <a class="btn btn-outline-success" href="{% url 'add_images' %}">{% trans 'Add Product Image' %}</a>
                 </nav>
                 <table>
                     <tr>
@@ -67,7 +67,7 @@
                         <th>{% trans 'Price' %}</th>
                         <th>{% trans 'Active' %}</th>
                         <th>{% trans 'Action' %}</th>
-                        <th>{% trans 'EditPhotos' %}</th>
+                        <th>{% trans 'EditImages' %}</th>
                     </tr>
                     {% for product in products %}
                     <tr>
@@ -82,7 +82,7 @@
                                 <button type="submit" name="action" value="delete">{% trans 'Delete' %}</button>
                             </form>
                         </td>
-                        <td><a aria-current="page" href="{% url 'product_images' product.id %}">All Photos</a></td>
+                        <td><a aria-current="page" href="{% url 'product_images' product.id %}">{% trans 'All Images' %}</a></td>
                     </tr>
                     {% endfor %}
                 </table>
