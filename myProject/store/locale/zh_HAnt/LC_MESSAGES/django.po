@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-13 19:43+0800\n"
+"POT-Creation-Date: 2024-04-22 20:36+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -219,7 +219,7 @@ msgid "Add Product"
 msgstr "增加商品"
 
 #: .\store\templates\adminDashboard.html:58
-#: .\store\templates\store\Store.html:43 .\store\templates\store\Store.html:44
+#: .\store\templates\store\Store.html:28 .\store\templates\store\Store.html:29
 msgid "Search"
 msgstr "搜尋"
 
@@ -365,11 +365,21 @@ msgstr "數量"
 msgid "Total"
 msgstr "總價"
 
-#: .\store\templates\store\Cart.html:39 .\store\templates\store\Store.html:30
-#: .\store\templates\store\Store.html:56
-#: .\store\templates\store\product.html:48
+#: .\store\templates\store\Cart.html:39 .\store\templates\store\Cart.html:65
+#: .\store\templates\store\Store.html:16 .\store\templates\store\Store.html:41
+#: .\store\templates\store\product.html:46
 msgid "View"
 msgstr "詳細"
+
+#: .\store\templates\store\Cart.html:55
+msgid "Top Selling Products"
+msgstr "暢銷商品"
+
+#: .\store\templates\store\Cart.html:63 .\store\templates\store\Store.html:14
+#: .\store\templates\store\Store.html:40
+#: .\store\templates\store\product.html:30
+msgid "Add to Cart"
+msgstr "加入購物車"
 
 #: .\store\templates\store\Checkout.html:8
 msgid "Back to Cart"
@@ -404,32 +414,22 @@ msgid "Chinese"
 msgstr "中文"
 
 #: .\store\templates\store\Store.html:6
-msgid "Top Selling Products"
-msgstr "暢銷商品"
-
-#: .\store\templates\store\Store.html:22
 msgid "Newest Products"
 msgstr "最新商品"
 
-#: .\store\templates\store\Store.html:41
+#: .\store\templates\store\Store.html:26
 msgid "All products"
 msgstr "所有商品"
 
-#: .\store\templates\store\Store.html:55
-#: .\store\templates\store\product.html:30
-#: .\store\templates\store\product.html:47
-msgid "Add to Cart"
-msgstr "加入購物車"
-
-#: .\store\templates\store\Store.html:65
+#: .\store\templates\store\Store.html:49
 msgid "Page:"
 msgstr "頁數"
 
-#: .\store\templates\store\Store.html:70
+#: .\store\templates\store\Store.html:54
 msgid "Previous"
 msgstr "上一頁"
 
-#: .\store\templates\store\Store.html:88
+#: .\store\templates\store\Store.html:72
 msgid "Next"
 msgstr "下一頁"
 
@@ -525,7 +525,7 @@ msgstr "連接技術："
 msgid "Description: "
 msgstr "介紹："
 
-#: .\store\templates\store\product.html:38
+#: .\store\templates\store\product.html:37
 msgid "Product recommendations:"
 msgstr "產品推薦："
 
