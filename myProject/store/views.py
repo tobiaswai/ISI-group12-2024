@@ -194,7 +194,7 @@ def product(request, pk):
           cartItems = order['get_cart_items']
      
      product = Product.objects.get(id=pk)
-     products = Product.objects.filter(Q(brand=product.brand) | Q(connectivity_technology=product.connectivity_technology))   
+     products = Product.objects.filter(Q(brand=product.brand) | Q(connectivity_technology=product.connectivity_technology))[:4]
      image = Image.objects.filter(product=product)
      context = {'product':product, 'cartItems':cartItems, 'image':image, 'products':products}
      return render(request, 'store/product.html', context)

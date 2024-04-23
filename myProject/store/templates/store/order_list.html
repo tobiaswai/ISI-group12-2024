@@ -38,7 +38,7 @@
 				<div class="cart-row">
 					<div style="flex:0.1"></div>
 					<a href="{% url 'order_detail' order.id %}">
-					<div style="flex:2">{{order.id}}</div></a>
+					<div style="flex:2"><strong>{{order.id}}</strong></div></a>
 					<div style="flex:1"></div>
 					<div style="flex:2">{{order.date_ordered}}</div>
 					<div style="flex:1">{{order.customer}}</div>
@@ -62,7 +62,8 @@
 					{% endif %}		
 					</div>
 				</div>
-				{% endfor %}			
+				{% endfor %}	
+				<h5 style="color: red;">({% trans 'After the order shipped you cannot change the status anymore' %})</h5>		
 		</div>
 	</div>
 

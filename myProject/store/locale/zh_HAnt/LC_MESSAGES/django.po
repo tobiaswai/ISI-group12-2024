@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-22 20:44+0800\n"
+"POT-Creation-Date: 2024-04-23 17:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -350,6 +350,13 @@ msgstr "總價："
 msgid "Checkout"
 msgstr "付款"
 
+#: .\store\templates\store\Cart.html:28
+#: .\store\templates\store\Checkout.html:12
+#, fuzzy
+#| msgid "image"
+msgid "Image"
+msgstr "照片"
+
 #: .\store\templates\store\Cart.html:29
 #: .\store\templates\store\Checkout.html:13
 msgid "Item"
@@ -513,6 +520,10 @@ msgstr "表示為已運輸"
 #: .\store\templates\store\order_list.html:60
 msgid "Cancel Order"
 msgstr "取消訂單:"
+
+#: .\store\templates\store\order_list.html:66
+msgid "After the order shipped you cannot change the status anymore"
+msgstr ""
 
 #: .\store\templates\store\product.html:27
 msgid "Brand: "
