@@ -56,7 +56,7 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit">{% trans 'Update' %}</button>
+                    <button class="btn btn-success" type="submit">{% trans 'Update' %}</button>
                 </form>                
             </div>
         </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-23 17:03+0800\n"
+"POT-Creation-Date: 2024-04-23 17:20+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,7 +207,7 @@ msgstr "登入"
 
 #: .\store\templates\add_images.html:54 .\store\templates\add_images.html:62
 msgid "Add Image"
-msgstr ""
+msgstr "增加商品照片"
 
 #: .\store\templates\adminDashboard.html:58
 #: .\store\templates\store\Store.html:28 .\store\templates\store\Store.html:29
@@ -352,8 +352,6 @@ msgstr "付款"
 
 #: .\store\templates\store\Cart.html:28
 #: .\store\templates\store\Checkout.html:12
-#, fuzzy
-#| msgid "image"
 msgid "Image"
 msgstr "照片"
 
@@ -523,7 +521,7 @@ msgstr "取消訂單:"
 
 #: .\store\templates\store\order_list.html:66
 msgid "After the order shipped you cannot change the status anymore"
-msgstr ""
+msgstr "訂單出貨後無法再更改狀態"
 
 #: .\store\templates\store\product.html:27
 msgid "Brand: "
