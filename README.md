@@ -122,7 +122,3 @@ This system enables customers to register, browse, search, and purchase products
 - Admin Dashboard  
 - Multilingual Interface (English/Chinese)  
 - Recommendation System  
-
-*(Screenshots available in `/docs/screenshots/` if added to repo.)*  
-
----
